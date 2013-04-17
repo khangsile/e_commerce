@@ -9,13 +9,13 @@ class DatabaseConnector {
         $password = "";
         $database = "";
         
-        $this->dbconn = \mysqli_connect($host, $username, $password, $database) or die("Unable to connect to host");
+        $this->dbconn = mysqli_connect($host, $username, $password, $database) or die("Unable to connect to host");
     }
     
     public function close() {
-        if ($dbconn) {
-            mysqli_close($dbconn);
-            $dbconn = null;
+        if ($this->dbconn) {
+            mysqli_close($this->dbconn);
+            $this->dbconn = null;
         } else {
             echo "No connection to database";
         }
@@ -33,14 +33,43 @@ class DatabaseConnector {
         return false;
     }
     
-    private function login_query($username, $password) {
-        $table = "users";
+    public function get_all_Items() {
+        $results = get_all_items_query();
         
-        $query = "SELECT * FROM $table WHERE name='$username' and password='$password'";
+        //additional work
+        
+        return $results;
+    }
+    
+    private function get_all_items_query() {
+        $query = "SELECT * FROM items";
+        
+        $result = mysqli_query($this->dbconn, $query);
+        $results = mysqli_fetch_all($result);
+        
+        $items = results_to_array($results);
+        
+        return $items;
+    }
+    
+    private function login_query($username, $password) {
+        
+        $query = "SELECT * FROM users WHERE name='$username' and password='$password'";
 
         $result = mysqli_query($this->dbconn, $query);
-
         $results = mysqli_fetch_all($result);
+        
+        $users = results_to_array($results);
+        
+        return $users;
+    }
+    
+    private function results_to_array($input) {
+        $results = array();
+        
+        while ($row = mysqli_fetch_array($input, MYSQL_NUM)) {
+            $results[] = $row;
+        }
         
         return $results;
     }

@@ -1,38 +1,25 @@
 <?php
-//database information
-$host = "";
-$user = "";
-$pass = "";
-$table = "";
-$database = "";
+include "DatabaseConnector.php";
 
-$dbconn = mysqli_connect($host, $user, $pass, $database) or die("Unable to connect to host");
+$dbconnector = new DatabaseConnector();
+$dbconnector.open();
 
 //Get username and password from form
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$username = stripslashes($username);
-$username = mysql_real_escape_string($username);
+$valid = $dbconnector.login($username, $password);
 
-$password = stripcslashes($password);
-$password = mysql_real_escape_string($password);
-
-$query = "SELECT * FROM $table WHERE name='$username' and password='$password'";
-
-$result = mysqli_query($dbconn, $query);
-
-$results = mysqli_fetch_all($result);
-
-//If exists, should only be 1 username/password combination that matches
-if (count($results) == 1) {
+$dbconnector.close();
+//if valid username we can continue to the main page
+if ($valid) {
     //do something
+    session_register($username);
+    session_register($password);
+    header("location: home.php");
 } else {
     echo "Incorrect login information";
+    header("location: login_failed.php");
 }
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 ?>
 
