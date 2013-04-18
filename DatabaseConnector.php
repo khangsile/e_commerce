@@ -41,12 +41,21 @@ class DatabaseConnector {
         
         return $results;
     }
-    
+    public function check_register($username, $email) {
+        $query = "SELECT * FROM users WHERE (user_name = '$username' OR user_email = '$email')";
+        $result = $this->dbconn->query($query);
+        if ($result == 0) {
+            return TRUE;
+        }
+        else {
+            return FALSE;
+        }
+            
+    }
     public function register($username, $password, $email, $user_type) {
-        $query = "INSERT into users (user_name, user_pass, user_email, user_type)
-                  VALUES ($username, $password, $email, $user_type)";
+        $query = "INSERT INTO users(user_name, user_pass, user_email, user_type)
+                  VALUES ('$username', '$password', '$email', '$user_type')";
         $this->dbconn->query($query);
-        return true;
     }
     
     private function get_all_users_query() {
