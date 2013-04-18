@@ -41,6 +41,14 @@ class DatabaseConnector {
         
         return $results;
     }
+    
+    public function register($username, $password, $email, $user_type) {
+        $query = "INSERT into users (user_name, user_pass, user_email, user_type)
+                  VALUES ($username, $password, $email, $user_type)";
+        $this->dbconn->query($query);
+        return true;
+    }
+    
     private function get_all_users_query() {
         $query = "SELECT * FROM users";
         $result = $this->dbconn->query($query);

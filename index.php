@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Log in!</title>
+        <title></title>
     </head>
     <body>
         <pre>
@@ -12,7 +12,7 @@
         $dbconnector->open();
         
         $items = $dbconnector->get_all_Items();
-        var_dump($items);
+        //var_dump($items);
         
         ?>
         </pre>
@@ -35,7 +35,14 @@
                 <input name="submit" type="submit" id="submit"></input>
             </div>
         </form>
-        
+        <form name="new_registration" method="post" action="registration.php">
+            <div>
+                <tr><td>
+                        <div class="link"><a href="registration.php">New User Registration</a></div>
+                </td></tr>
+                
+            </div>
+        </form>
         
         
     </body>
