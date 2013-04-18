@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "DatabaseConnector.php";
 
 $dbconnector = new DatabaseConnector();
@@ -13,9 +14,9 @@ $valid = $dbconnector->login($username, $password);
 $dbconnector->close();
 //if valid username we can continue to the main page
 if ($valid) {
-    //do something
-    session_register($username);
-    session_register($password);
+    
+    $_SESSION['username'] = $username;
+    $_SESSION['password'] = $password;
     header("location: home.php");
 } else {
     echo "Incorrect login information";

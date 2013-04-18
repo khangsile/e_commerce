@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,6 +10,7 @@
     <body>
         <pre>
         <?php
+        
         include 'DatabaseConnector.php';
         $dbconnector = new DatabaseConnector();
         $dbconnector->open();

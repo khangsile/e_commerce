@@ -1,4 +1,5 @@
 <?php
+session_start();
 class DatabaseConnector {
     private $dbconn = null;
     
@@ -32,6 +33,13 @@ class DatabaseConnector {
             return true;
         
         return false;
+    }
+    
+    public function get_user($username){
+        $query = "Select * FROM users WHERE user_name ='$username'";
+        $result = $this->dbconn->query($query);
+        $results = $this->results_to_array($result);
+        return $results;
     }
     
     public function get_all_Users() {
