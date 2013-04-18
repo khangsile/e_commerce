@@ -2,8 +2,12 @@
 session_start();
 ?>
 <html>
-    <h2>User Account Info:</h2>
-    
+    <table>
+    <tr><td>
+        <div class="link"><a href="home.php">Home</a></div>
+    </td></tr>
+    </table>
+    <h2>User Account Info:</h2>    
 </html>
 
 <?php
