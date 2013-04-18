@@ -26,7 +26,10 @@ if (!(($user_type == 1)||($user_type == 2)||($user_type += 3))) {
     $error_message = $error_message." Accepted User Types are 1, 2, or 3.<br/>";
 }
 
-if(!($dbconnector->check_register($username, $email))) {
+if($dbconnector->check_register($username, $email)) {
+    //do nothing! :)
+}
+else{
     $error_message = $error_message." Username or Email already in use.<br/>";
 }
 

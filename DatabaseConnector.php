@@ -44,8 +44,10 @@ class DatabaseConnector {
     public function check_register($username, $email) {
         $query = "SELECT * FROM users WHERE (user_name = '$username' OR user_email = '$email')";
         $result = $this->dbconn->query($query);
+        //var_dump($result);
         $result_array = $this->results_to_array($result);
-        if ($result_array["num_rows"] == 0) {
+        //var_dump($result_array);
+        if (empty($result_array)) {
             return TRUE;
         }
         else {
