@@ -2,15 +2,15 @@
 include "DatabaseConnector.php";
 
 $dbconnector = new DatabaseConnector();
-$dbconnector.open();
+$dbconnector->open();
 
 //Get username and password from form
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$valid = $dbconnector.login($username, $password);
+$valid = $dbconnector->login($username, $password);
 
-$dbconnector.close();
+$dbconnector->close();
 //if valid username we can continue to the main page
 if ($valid) {
     //do something

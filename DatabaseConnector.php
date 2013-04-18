@@ -4,12 +4,12 @@ class DatabaseConnector {
     
     //Open the database
     public function open() {
-        $host = "";    
-        $username = "";
-        $password = "";
-        $database = "";
+        $host = "mysql.cs.uky.edu";    
+        $username = "jchett2";
+        $password = "asdf1234";
+        $database = "jchett2";
         
-        $this->dbconn = mysqli_connect($host, $username, $password, $database) or die("Unable to connect to host");
+        $this->dbconn = new mysqli($host, $username, $password, $database) or die("Unable to connect to host");
     }
     
     public function close() {
@@ -22,10 +22,11 @@ class DatabaseConnector {
     }
     
     public function login($username, $password) {
-        $username = sql_protect($username);
-        $password = sql_protect($password);
+        //removed sql protector for now.
+        $username = ($username);
+        $password = ($password);
         
-        $results = login_query($username, $password);
+        $results = $this->login_query($username, $password);
         
         if (count($results)==1)
             return true;
@@ -33,41 +34,52 @@ class DatabaseConnector {
         return false;
     }
     
-    public function get_all_Items() {
-        $results = get_all_items_query();
+    public function get_all_Users() {
+        $results = $this->get_all_users_query();
         
         //additional work
         
         return $results;
     }
-    
+    private function get_all_users_query() {
+        $query = "SELECT * FROM users";
+        $result = $this->dbconn->query($query);
+        $rows = array();
+        $rows = $this->results_to_array($result);
+        return $rows;
+    }
+    public function get_all_Items() {
+        $results = $this->get_all_items_query();
+        
+        //additional work
+        
+        return $results;
+    }
     private function get_all_items_query() {
         $query = "SELECT * FROM items";
-        
-        $result = mysqli_query($this->dbconn, $query);
-        $results = mysqli_fetch_all($result);
-        
-        $items = results_to_array($results);
-        
-        return $items;
+        $result = $this->dbconn->query($query);
+        $rows = array();
+        $rows = $this->results_to_array($result);
+        return $rows;
     }
     
     private function login_query($username, $password) {
         
-        $query = "SELECT * FROM users WHERE name='$username' and password='$password'";
-
-        $result = mysqli_query($this->dbconn, $query);
-        $results = mysqli_fetch_all($result);
-        
-        $users = results_to_array($results);
-        
+        $query = "SELECT * FROM users WHERE user_name='$username' and user_pass='$password'";
+        $result = $this->dbconn->query($query);  
+        if (count($result) > 0){
+            $users = $this->results_to_array($result); 
+        }
+        else{
+            $users = NULL; 
+        }
+    
         return $users;
     }
     
     private function results_to_array($input) {
-        $results = array();
-        
-        while ($row = mysqli_fetch_array($input, MYSQL_NUM)) {
+        $row = array();
+        while ($row = $input->fetch_assoc()) {
             $results[] = $row;
         }
         

@@ -1,3 +1,18 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+    </head>
+    <body>
+        
+        <div id="navbar">
+            <td><div class="link"><a href="shop.php">Shop</a></div></td>
+            <td><div class="link"><a href="account.php">Account</a></div></td>
+            <td><div class="link"><a href="inventory.php">Inventory</a></div></td>
+            <td><div class="link"><a href="analytics.php">Analytics</a></div></td>
+            <td><div class="link"><a href="promotions.php">Promotions</a></div></td>
+        </div>
+    
 <pre>
 <?php
 
@@ -13,3 +28,6 @@
  */
 ?>
 </pre>
+        
+    </body>
+</html>

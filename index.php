@@ -2,23 +2,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
+        <title>Log in!</title>
     </head>
     <body>
+        <pre>
         <?php
-        // put your code here
+        include 'DatabaseConnector.php';
+        $dbconnector = new DatabaseConnector();
+        $dbconnector->open();
+        
+        $items = $dbconnector->get_all_Items();
+        var_dump($items);
         
         ?>
+        </pre>
         <div id="header">
             <h1>E-Commerce</h1>            
-        </div>
-        
-        <div id="navbar">
-            <td><div class="link"><a href="shop.php">Shop</a></div></td>
-            <td><div class="link"><a href="account.php">Account</a></div></td>
-            <td><div class="link"><a href="inventory.php">Inventory</a></div></td>
-            <td><div class="link"><a href="analytics.php">Analytics</a></div></td>
-            <td><div class="link"><a href="promotions.php">Promotions</a></div></td>
         </div>
         
         <form name="login" method="post" action="login.php">
