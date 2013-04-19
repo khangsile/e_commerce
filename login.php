@@ -1,4 +1,5 @@
-
+<?php
+session_start();
 include "DatabaseConnector.php";
 
 $dbconnector = new DatabaseConnector();

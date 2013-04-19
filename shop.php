@@ -30,12 +30,18 @@ and open the template in the editor.
         $dbconnector->open();
         $all_items = $dbconnector->get_all_Items();
         
+        for($counter = 0; $counter< count($all_items); $counter++) {
+            $item_title = $all_items[$counter]["title"];
+            $item_description = $all_items[$counter]["item_description"];
+            $item_price = $all_items[$counter]["item_price"];
+            
+            echo '<br/>';
+            echo 'Item: '; echo $item_title; echo'<br/>';
+            echo 'Item Description: '; echo $item_description; echo '<br/>';
+            echo 'Item Price: '; echo $item_price; echo'<br/>';
+        }
         
         
-        
-        //Shows all Items.
-        var_dump($all_items);
-        // put your code here
         ?>
         </pre>
     </body>
