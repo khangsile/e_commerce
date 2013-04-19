@@ -29,8 +29,11 @@ and open the template in the editor.
         $dbconnector = new DatabaseConnector();
         $dbconnector->open();
         $all_items = $dbconnector->get_all_Items();
-        $all_users = $dbconnector->get_all_Users();
-        var_dump($all_users);
+        
+        
+        
+        
+        //Shows all Items.
         var_dump($all_items);
         // put your code here
         ?>
