@@ -15,9 +15,14 @@ and open the template in the editor.
     <body>
         <div>
             <table>
-                <tr><td>
-                    <div class="link"><a href="home.php">Home</a></div>
-                </td></tr>
+            <tr><td>
+                    <div class="link"> <a href="signout.php">Sign Out</a></div>
+            </td></tr>
+            </table>
+            <table>
+            <td><div class="link" ><a href="home.php">Home</a></div></td>
+            </table>
+            <table>
                 <tr><td>
                     <h3>Inventory Management. </h3>
                     <h3>Staff user: <?php echo $_SESSION['username']?>!</h3>
