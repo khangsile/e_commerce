@@ -20,10 +20,20 @@ and open the template in the editor.
                 </td></tr>
                 <tr><td>
                 <h3>Welcome to the Store <?php echo $_SESSION['username']?>!</h3>    
-            </td></tr></table>
+                </td></tr>
+            </table>
         </div>
+        <pre>
         <?php
+        include 'DatabaseConnector.php';
+        $dbconnector = new DatabaseConnector();
+        $dbconnector->open();
+        $all_items = $dbconnector->get_all_Items();
+        $all_users = $dbconnector->get_all_Users();
+        var_dump($all_users);
+        var_dump($all_items);
         // put your code here
         ?>
+        </pre>
     </body>
 </html>
