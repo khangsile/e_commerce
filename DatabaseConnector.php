@@ -83,6 +83,17 @@ class DatabaseConnector {
         
         return $results;
     }
+    public function get_user_type ($username) {
+        return($this->get_user_type_query($username));
+    }
+    private function get_user_type_query($username) {
+        $query2 = "SELECT * FROM users WHERE user_name='$username'";
+        $result = $this->dbconn->query($query2);
+        $rows = array();
+        $rows = $this->results_to_array($result);
+        return($rows[0]["user_type"]);
+    }
+    
     private function get_all_items_query() {
         $query = "SELECT * FROM items";
         $result = $this->dbconn->query($query);
