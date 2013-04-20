@@ -1,5 +1,4 @@
 <?php
-session_start();
 class DatabaseConnector {
     private $dbconn = null;
     

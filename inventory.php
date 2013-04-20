@@ -28,7 +28,7 @@ and open the template in the editor.
             <table>
                 <tr><td>
                     <h3>Inventory Management. </h3>
-                    <h3>Staff user: <?php echo $_SESSION['username']?>!</h3>
+                    <h3> Manager: <?php echo $_SESSION['username']?>!</h3>
                 </td></tr>
                 <tr><td>
                     <h4>Inventory Update:</h4>            
