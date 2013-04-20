@@ -23,7 +23,7 @@ and open the template in the editor.
             </td></tr>
             </table>
             <table>
-            <td><div class="link" ><a href="home.php">Home</a></div></td>
+            <td><div class="link" ><a href="login.php">Home</a></div></td>
             </table>
             <table>
                 <tr><td>

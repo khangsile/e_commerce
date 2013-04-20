@@ -6,9 +6,14 @@ $dbconnector = new DatabaseConnector();
 $dbconnector->open();
 
 //Get username and password from form
-$username = $_POST['username'];
-$password = $_POST['password'];
-
+if ($_SESSION['username'] == NULL){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+}
+else {
+    $username = $_SESSION['username'];
+    $password = $_SESSION['password'];
+}
 $valid = $dbconnector->login($username, $password);
 
 

@@ -14,12 +14,17 @@ if ($_SESSION['username'] == NULL){
         
         <div id="navbar">
             <table>
+                <tr><td>
+                        <h3>Welcome Store Manager: <?php echo $_SESSION['username']?>!</h3>
+                <td></tr>
+            </table>
+            <table>
             <tr><td>
                     <div class="link"> <a href="signout.php">Sign Out</a></div>
             </td></tr>
             </table>
             <table>
-            <td><div class="link" ><a href="home.php">Home</a></div></td>
+            <td><div class="link" ><a href="login.php">Home</a></div></td>
             <td><div class="link"><a href="shop.php">Shop</a></div></td>
             <td><div class="link"><a href="account.php">Account</a></div></td>
             <td><div class="link"><a href="inventory.php">Inventory</a></div></td>
