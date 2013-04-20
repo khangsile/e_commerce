@@ -34,15 +34,15 @@ and open the template in the editor.
                     <h4>Inventory Update:</h4>            
                 </td></tr>
             </table>
-            <form name="login" method="post" action="inventory.php">
+            <form name="login" method="post" action="inventoryupdate.php">
                 <table>
                     <tr>
                     <td>Item ID :</td>
-                    <td><input name="username" type="text" id="username"></input></td>
+                    <td><input name="item_id" type="text" id="item_id"></input></td>
                     </tr>
                     <tr>
                     <td>Updated Quantity :</td>
-                    <td><input name="password" type="text" id="password"></input></td>
+                    <td><input name="new_count" type="text" id="new_count"></input></td>
                     </tr>
                     <tr>
                     <td><input name="submit" type="submit" id="submit"></input></td>
@@ -62,12 +62,14 @@ and open the template in the editor.
             $item_id = $all_items[$counter]["item_id"];
             $item_description = $all_items[$counter]["item_description"];
             $item_price = $all_items[$counter]["item_price"];
+            $item_count = $all_items[$counter]["item_count"];
             
             echo '<br/>';
             echo 'Item: '; echo $item_title; echo'<br/>';
             echo 'Item ID: '; echo $item_id; echo'<br/>';
             echo 'Item Description: '; echo $item_description; echo '<br/>';
             echo 'Item Price: '; echo $item_price; echo'<br/>';
+            echo 'Item Count: '; echo $item_count; echo'<br/>';
         }
         
         ?>

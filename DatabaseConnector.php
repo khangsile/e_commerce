@@ -75,13 +75,8 @@ class DatabaseConnector {
         $rows = $this->results_to_array($result);
         return $rows;
     }
-    public function get_all_Items() {
-        $results = $this->get_all_items_query();
-        
-        //additional work
-        
-        return $results;
-    }
+    
+    //GET USER TYPE
     public function get_user_type ($username) {
         return($this->get_user_type_query($username));
     }
@@ -93,8 +88,26 @@ class DatabaseConnector {
         return($rows[0]["user_type"]);
     }
     
+    //SET INVENTORY COUNTS
+    public function set_item_count($item_id, $new_count) {
+        $this->set_item_count_query($item_id, $new_count);
+        return;
+    }
+    private function set_item_count_query($item_id, $new_count) {
+        $query = "UPDATE inventory SET inventory.item_count = '$new_count' WHERE inventory.item_id = '$item_id'";
+        $this->dbconn->query($query);
+    }
+    
+    //GET ALL ITEMS
+    public function get_all_Items() {
+        $results = $this->get_all_items_query();
+        
+        //additional work
+        
+        return $results;
+    }
     private function get_all_items_query() {
-        $query = "SELECT * FROM items";
+        $query = "SELECT * FROM items JOIN (inventory) ON (items.item_id = inventory.item_id)";
         $result = $this->dbconn->query($query);
         $rows = array();
         $rows = $this->results_to_array($result);
