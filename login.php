@@ -26,7 +26,6 @@ if ($valid) {
     }
     
 } else {
-    echo "Incorrect login information";
     header("location: login_failed.php");
 }
 ?>
