@@ -32,10 +32,6 @@ if ($valid) {
     }
     
 } else {
-<<<<<<< HEAD
-   //echo "Incorrect login information";
-=======
->>>>>>> 2e0eeafe7c64f0025ae52a8309c8eaf6f0dd2377
     header("location: login_failed.php");
 }
 ?>
