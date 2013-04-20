@@ -18,7 +18,7 @@ if ($valid) {
     session_register($password);
     header("location: home.php");
 } else {
-    echo "Incorrect login information";
+   //echo "Incorrect login information";
     header("location: login_failed.php");
 }
 ?>
