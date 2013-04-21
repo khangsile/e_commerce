@@ -50,7 +50,27 @@ class DatabaseConnector {
     }
     
     public function get_permissions_from_type($usertype) {
+        $usertype = $this->sql_protect($usertype);
         
+        $permissions_array = $this->get_permissions_query($usertype);
+        
+        return $permissions;
+    }
+    
+    public function get_item_info($item_id) {
+        
+        $item_id = $this->sql_protect($item_id);
+        
+        return $this->get_item_info_query($item_id);
+    }
+    
+    private function get_item_info_query($item_id) {
+        $query = "SELECT * FROM items WHERE item_id='$item_id'";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array;
     }
     
     private function get_permissions_query($usertype) {
