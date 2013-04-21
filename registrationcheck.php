@@ -1,5 +1,3 @@
-
-
 <?php
 
 include "DatabaseConnector.php";
@@ -13,11 +11,10 @@ $password = $_POST['password'];
 $email = $_POST['email'];
 $user_type = $_POST['user_type'];
 
-echo "username: ".$username."<br/>";
+/*echo "username: ".$username."<br/>";
 echo "password: ".$password."<br/>";
 echo "email:".$email."<br/>";
-echo "user_type:".$user_type."<br/>";
-
+echo "user_type:".$user_type."<br/>"; */
 
 //CHECKS FOR CORRECTNESS
 if(($username == NULL)||($password == NULL)||($email == NULL)||($user_type == NULL))
@@ -39,7 +36,11 @@ else{
 if ($error_message=="")
 {
     $dbconnector->register($username, $password, $email, $user_type);
-    echo"<br/><h3>Welcome New User!</h3><br/>";
+    $dbconnector->close();
+
+    header("location: index.php");
+
+    //echo"<br/><h3>Welcome New User!</h3><br/>";
 }
  else {
      echo "Error:<br/>".$error_message;

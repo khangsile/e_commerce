@@ -48,6 +48,25 @@ class DatabaseConnector {
         
         return $results;
     }
+    
+    public function get_permissions_from_type($usertype) {
+        
+    }
+    
+    private function get_permissions_query($usertype) {
+        $query = "SELECT * FROM permissions WHERE usertype = '$usertype'";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        if (count($result_array)==1) {
+            return $result_array;
+        } else {
+            echo "ERROR";
+            return null;
+        }
+    }
+    
     public function check_register($username, $email) {
         $query = "SELECT * FROM users WHERE (user_name = '$username' OR user_email = '$email')";
         $result = $this->dbconn->query($query);
@@ -62,6 +81,7 @@ class DatabaseConnector {
         }
             
     }
+    
     public function register($username, $password, $email, $user_type) {
         $query = "INSERT INTO users(user_name, user_pass, user_email, user_type)
                   VALUES ('$username', '$password', '$email', '$user_type')";
@@ -80,13 +100,6 @@ class DatabaseConnector {
     public function get_user_type ($username) {
         return($this->get_user_type_query($username));
     }
-    private function get_user_type_query($username) {
-        $query2 = "SELECT * FROM users WHERE user_name='$username'";
-        $result = $this->dbconn->query($query2);
-        $rows = array();
-        $rows = $this->results_to_array($result);
-        return($rows[0]["user_type"]);
-    }
     
     //SET INVENTORY COUNTS
     public function set_item_count($item_id, $new_count) {
@@ -98,6 +111,7 @@ class DatabaseConnector {
         $this->dbconn->query($query);
     }
     
+    
     //GET ALL ITEMS
     public function get_all_Items() {
         $results = $this->get_all_items_query();
@@ -106,6 +120,15 @@ class DatabaseConnector {
         
         return $results;
     }
+    
+    private function get_user_type_query($username) {
+        $query2 = "SELECT * FROM users WHERE user_name='$username'";
+        $result = $this->dbconn->query($query2);
+        $rows = array();
+        $rows = $this->results_to_array($result);
+        return($rows[0]["user_type"]);
+    }
+    
     private function get_all_items_query() {
         $query = "SELECT * FROM items JOIN (inventory) ON (items.item_id = inventory.item_id)";
         $result = $this->dbconn->query($query);
