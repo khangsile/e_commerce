@@ -20,15 +20,9 @@ if ($valid) {
     $_SESSION['username'] = $user[0]["user_name"];
     $_SESSION['password'] = $user[0]["user_pass"];
     $_SESSION['user_type'] = $user[0]["user_type"];
-    
+    $_SESSION['shoppingcart'] = array();
 
-    if($_SESSION['user_type'] == 1) {
-        header("location: managerhome.php");
-    } else if ($_SESSION['user_type'] == 2) {
-        header("location: staffhome.php");
-    } else if ($_SESSION['user_type'] == 3) {
-        header("location: memberhome.php");
-    }
+    header("location: home.php");
     
 } else {
     header("location: login_failed.php");

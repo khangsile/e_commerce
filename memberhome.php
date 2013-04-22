@@ -27,6 +27,7 @@ if ($_SESSION['username'] == NULL){
                 <td><div class="link" ><a href="login.php">Home</a></div></td>
                 <td><div class="link"><a href="shop.php">Shop</a></div></td>
                 <td><div class="link"><a href="account.php">Account</a></div></td>
+                <td><div class="link"><a href="items.php">Items</a></div></td>
             </table>
         </div>
     

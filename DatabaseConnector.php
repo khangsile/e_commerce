@@ -59,7 +59,7 @@ class DatabaseConnector {
     
     public function get_item_info($item_id) {
         
-        $item_id = $this->sql_protect($item_id);
+        //$item_id = $this->sql_protect($item_id);
         
         return $this->get_item_info_query($item_id);
     }
@@ -70,7 +70,7 @@ class DatabaseConnector {
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
         
-        return $result_array;
+        return $result_array[0];
     }
     
     private function get_permissions_query($usertype) {
@@ -182,7 +182,7 @@ class DatabaseConnector {
     
     private function sql_protect($input) {
         $input = \stripslashes($input);
-        $escaped_input = mysql_real_escape_string($input);
+        $escaped_input = mysqli_real_escape_string($input);
         
         return $escaped_input;
     }

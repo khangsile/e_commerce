@@ -2,7 +2,7 @@
 session_start();
 session_destroy();
 
-
+header("location: index.php");
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -13,7 +13,7 @@ session_destroy();
         <table>
             <tr>
                 <td>
-                    <h3>You were signed our properly!</h3>
+                    <h3>You were signed out properly!</h3>
                 </td>
             </tr>
             <tr>

@@ -60,11 +60,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="index.php">E commerce</a></h1>
+        	<h1><a href="home.php">E commerce</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="#">My Wishlist</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>
+	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="index.php">Log In</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -73,23 +73,9 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="products.html">Products</a>
-                    <ul>
-                        <li><a href="http://www.templatemo.com/page/1">Sub menu 1</a></li>
-                        <li><a href="http://www.templatemo.com/page/2">Sub menu 2</a></li>
-                        <li><a href="http://www.templatemo.com/page/3">Sub menu 3</a></li>
-                  	</ul>
-                </li>
-                <li><a href="about.html" class="selected">About</a>
-                    <ul>
-                        <li><a href="http://www.templatemo.com/page/1">Sub menu 1</a></li>
-                        <li><a href="http://www.templatemo.com/page/2">Sub menu 2</a></li>
-                        <li><a href="http://www.templatemo.com/page/3">Sub menu 3</a></li>
-                        <li><a href="http://www.templatemo.com/page/4">Sub menu 4</a></li>
-                        <li><a href="http://www.templatemo.com/page/5">Sub menu 5</a></li>
-                  	</ul>
-                </li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="items.php">Products</a></li>
+                <li><a href="about.html" class="selected">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -98,7 +84,11 @@ ddsmoothmenu.init({
         </div> <!-- end of ddsmoothmenu -->
         <div id="menu_second_bar">
         	<div id="top_shopping_cart">
-            	Shopping Cart: <strong>3 Products</strong> ( <a href="#">Show Cart</a> )
+            	Shopping Cart: <strong>
+                    <?php
+                        echo count($_SESSION['shopping_cart']);
+                    ?>
+                    Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
                 <form action="#" method="get">
@@ -109,8 +99,57 @@ ddsmoothmenu.init({
             <div class="cleaner"></div>
     	</div>
     </div> <!-- END of templatemo_menu -->
-    <div id="content" class="float_r" width=>
-        <form name="login" method="post" action="login.php">
+    
+    <div id="templatemo_main">
+   		<div id="sidebar" class="float_l">
+        	<div class="sidebar_box"><span class="bottom"></span>
+            	<h3>Categories</h3>   
+                <div class="content"> 
+                    <ul class="sidebar_list">
+                    	<li class="first"><a href="#">All</a></li>
+                        <li><a href="#">Outdoor</a></li>
+                        <li><a href="#">Fine Dining</a></li>
+                        <li><a href="#">Tailgating</a></li>
+                        <li><a href="#">Graduation</a></li>
+                        <li><a href="#">Birthday</a></li>
+                        <li><a href="#">Date</a></li>
+                        <li class="last"><a href="#">Party</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar_box"><span class="bottom"></span>
+            	<h3>Best Sellers </h3>   
+                <div class="content"> 
+                    <div class="bs_box">
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 01" /></a>
+                        <h4><a href="#">Donec nunc nisl</a></h4>
+                        <p class="price">$10</p>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="bs_box">
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 02" /></a>
+                        <h4><a href="#">Aenean eu tellus</a></h4>
+                        <p class="price">$12</p>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="bs_box">
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 03" /></a>
+                        <h4><a href="#">Phasellus ut dui</a></h4>
+                        <p class="price">$20</p>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="bs_box">
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 04" /></a>
+                        <h4><a href="#">Vestibulum ante</a></h4>
+                        <p class="price">$16</p>
+                        <div class="cleaner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="content" class="float_r">
+            <form name="login" method="post" action="login.php">
                 <td text-align="right">Username :</td>
                 <td><input name="username" type="text" id="username" display="inline" text-align="right"></input></td>
        
@@ -118,15 +157,16 @@ ddsmoothmenu.init({
                 <td><input name="password" type="text" id="password" display="inline" text-align="right"></input></td>
             
                 <input name="submit" type="submit" id="submit" class="sub_btn"></input>
-        </form>
-        <form name="new_registration" method="post" action="registration.php">
-            <div>
-                <tr><td>
-                        <div class="link"><a href="registration.php">New User Registration</a></div>
-                </td></tr>
-                
-            </div>
-        </form>
+            </form>
+            <form name="new_registration" method="post" action="registration.php">
+                <div>
+                    <tr><td>
+                         <div class="link"><a href="registration.php">New User Registration</a></div>
+                    </td></tr>
+                    
+                </div>
+            </form>
+        </div>
     </div>
         
         

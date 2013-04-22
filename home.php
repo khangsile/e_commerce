@@ -1,18 +1,11 @@
-<?php
-session_start();
-if ($_SESSION['username'] == NULL){
-    header("location: index.php");
-}
-?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Food</title>
-<meta name="keywords" content="station shop, product detail, web design theme, free website template, templatemo" />
-<meta name="description" content="Station Shop Theme, Product Detail, free template provided by templatemo.com" />
+<meta name="keywords" content="station shop, theme, free template, templatemo, CSS, HTML" />
+<meta name="description" content="Station Shop Theme, free CSS template provided by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
-
 <link rel="stylesheet" type="text/css" href="templatemo_352_station_shop/css/ddsmoothmenu.css" />
 
 <script type="text/javascript" src="templatemo_352_station_shop/js/jquery.min.js"></script>
@@ -46,11 +39,29 @@ ddsmoothmenu.init({
 
 </script>
 
-<link rel="stylesheet" type="text/css" media="all" href="templatemo_352_station_shop/css/jquery.dualSlider.0.2.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
-<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
-<script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.timers-1.2.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.dualSlider.0.3.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function() {
+        
+        $(".carousel").dualSlider({
+            auto:true,
+            autoDelay: 6000,
+            easingCarousel: "swing",
+            easingDetails: "easeOutBack",
+            durationCarousel: 1000,
+            durationDetails: 600
+        });
+        
+    });
+    
+</script>
 
 </head>
 
@@ -58,9 +69,9 @@ ddsmoothmenu.init({
 
 <div id="templatemo_wrapper">
 	<div id="templatemo_header">
-    	
+    
     	<div id="site_title">
-        	<h1><a href="index.php">Food</a></h1>
+        	<h1><a href="home.php">Food</a></h1>
         </div>
         
         <div id="header_right">
@@ -73,9 +84,9 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="home.php">Home</a></li>
+                <li><a href="home.php" class="selected">Home</a></li>
                 <li><a href="items.php">Products</a></li>
-                <li><a href="about.html" class="selected">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -121,25 +132,25 @@ ddsmoothmenu.init({
             	<h3>Best Sellers </h3>   
                 <div class="content"> 
                 	<div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 01" /></a>
+                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 01" /></a>
                         <h4><a href="#">Donec nunc nisl</a></h4>
                         <p class="price">$10</p>
                         <div class="cleaner"></div>
                     </div>
                     <div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 02" /></a>
+                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 02" /></a>
                         <h4><a href="#">Aenean eu tellus</a></h4>
                         <p class="price">$12</p>
                         <div class="cleaner"></div>
                     </div>
                     <div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 03" /></a>
+                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 03" /></a>
                         <h4><a href="#">Phasellus ut dui</a></h4>
                         <p class="price">$20</p>
                         <div class="cleaner"></div>
                     </div>
                     <div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 04" /></a>
+                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 04" /></a>
                         <h4><a href="#">Vestibulum ante</a></h4>
                         <p class="price">$16</p>
                         <div class="cleaner"></div>
@@ -148,70 +159,28 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	
-            <?php
-                include "DatabaseConnector.php";
-                
-                $dbconnector = new DatabaseConnector();
-                $dbconnector->open();
-                
-                $item_id = $_GET["itemid"];
-                
-                $item_info = $dbconnector->get_item_info($item_id);
-                $dbconnector->close();
-                
-                $item_name = $item_info['title'];
-                
-                echo "<h1>$item_name</h1>";
-            ?>
-            
-            <div class="content_half float_l">
-        	<a  rel="lightbox[portfolio]" href="images/product/10_l.jpg"><img src="images/product/10.jpg" alt="Image 01" /></a>
-            </div>
-            <div class="content_half float_r">
-				<table>
-                    <tr>
-                        <td height="30" width="160">Price:</td>
-                        <td>
-                            <?php 
-                                $item_price = $item_info['item_price'];
-                                echo "$$item_price"; 
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="30">Availability:</td>
-                        <td>
-                            <?php
-                                echo "In Stock";
-                            ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="30">Model:</td>
-                        <td>Product 14</td>
-                    </tr>
-                    <tr>
-                        <td height="30">Manufacturer:</td>
-                        <td>Apple</td>
-                    </tr>
-                    <tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>
-                </table>
-                <div class="cleaner h20"></div>
+        	<h1>VIP Products</h1>
+            <div class="product_box">
+            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/01.jpg" alt="Image 01" /></a>
+                <h3>Integer eleifend sed</h3>
+                <p class="product_price">$ 100</p>
                 <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-			</div>
-            <div class="cleaner h30"></div>
-            
-            <h5>Product Description</h5>
-            <p>
-                <?php 
-                    $item_description = $item_info['item_description'];
-                    echo "$item_description";
-                ?>
-            </p>	
-            
-            <div class="cleaner h50"></div>
-            
+                <a href="productdetail.html" class="detail">Detail</a>
+            </div>        	
+            <div class="product_box">
+            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/02.jpg" alt="Image 02" /></a>
+                <h3>Nam cursus facilisis</h3>
+                <p class="product_price">$ 200</p>
+                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
+                <a href="productdetail.html" class="detail">Detail</a>
+            </div>        	
+            <div class="product_box no_margin_right">
+            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/03.jpg" alt="Image 03" /></a>
+                <h3>Mauris consectetur</h3>
+                <p class="product_price">$ 120</p>
+                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
+                <a href="productdetail.html" class="detail">Detail</a>
+            </div>        	
         </div> 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
