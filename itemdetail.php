@@ -8,7 +8,7 @@ if ($_SESSION['username'] == NULL){
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Station Shop Theme - Product Detail Page</title>
+<title>Food</title>
 <meta name="keywords" content="station shop, product detail, web design theme, free website template, templatemo" />
 <meta name="description" content="Station Shop Theme, Product Detail, free template provided by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
@@ -64,7 +64,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>
+	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -84,7 +84,11 @@ ddsmoothmenu.init({
         </div> <!-- end of ddsmoothmenu -->
         <div id="menu_second_bar">
         	<div id="top_shopping_cart">
-            	Shopping Cart: <strong>3 Products</strong> ( <a href="#">Show Cart</a> )
+            	Shopping Cart: <strong>
+                    <?php
+                        echo count($_SESSION['shopping_cart']);
+                    ?>
+                    Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
                 <form action="#" method="get">
@@ -101,7 +105,7 @@ ddsmoothmenu.init({
         	<div class="sidebar_box"><span class="bottom"></span>
             	<h3>Categories</h3>   
                 <div class="content"> 
-                	<ul class="sidebar_list">
+                    <ul class="sidebar_list">
                     	<li class="first"><a href="#">All</a></li>
                         <li><a href="#">Outdoor</a></li>
                         <li><a href="#">Fine Dining</a></li>

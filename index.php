@@ -58,11 +58,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="index.php">Food</a></h1>
+        	<h1><a href="home.php">Food</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>
+	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="index.php">Log In</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -71,23 +71,9 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a>
-                    <ul>
-                        <li><a href="http://www.templatemo.com/page/1">Sub menu 1</a></li>
-                        <li><a href="http://www.templatemo.com/page/2">Sub menu 2</a></li>
-                        <li><a href="http://www.templatemo.com/page/3">Sub menu 3</a></li>
-                  	</ul>
-                </li>
-                <li><a href="about.html" class="selected">About</a>
-                    <ul>
-                        <li><a href="http://www.templatemo.com/page/1">Sub menu 1</a></li>
-                        <li><a href="http://www.templatemo.com/page/2">Sub menu 2</a></li>
-                        <li><a href="http://www.templatemo.com/page/3">Sub menu 3</a></li>
-                        <li><a href="http://www.templatemo.com/page/4">Sub menu 4</a></li>
-                        <li><a href="http://www.templatemo.com/page/5">Sub menu 5</a></li>
-                  	</ul>
-                </li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="items.php">Products</a></li>
+                <li><a href="about.html" class="selected">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -96,7 +82,11 @@ ddsmoothmenu.init({
         </div> <!-- end of ddsmoothmenu -->
         <div id="menu_second_bar">
         	<div id="top_shopping_cart">
-            	Shopping Cart: <strong>3 Products</strong> ( <a href="#">Show Cart</a> )
+            	Shopping Cart: <strong>
+                    <?php
+                        echo count($_SESSION['shopping_cart']);
+                    ?>
+                    Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
                 <form action="#" method="get">
@@ -113,7 +103,7 @@ ddsmoothmenu.init({
         	<div class="sidebar_box"><span class="bottom"></span>
             	<h3>Categories</h3>   
                 <div class="content"> 
-                	<ul class="sidebar_list">
+                    <ul class="sidebar_list">
                     	<li class="first"><a href="#">All</a></li>
                         <li><a href="#">Outdoor</a></li>
                         <li><a href="#">Fine Dining</a></li>

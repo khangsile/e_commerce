@@ -25,10 +25,12 @@ if ($valid) {
     session_register('username');
     session_register('password');
     session_register('user_type');
+    session_register('shopping_cart');
     
     $_SESSION['username'] = $username;
     $_SESSION['password'] = $password;
     $_SESSION['user_type'] = $account_type;
+    $_SESSION['shopping_cart'] = array();
     
     if($account_type == 1) {
         header("location: managerhome.php");
