@@ -13,7 +13,7 @@ session_destroy();
         <table>
             <tr>
                 <td>
-                    <h3>You were signed our properly!</h3>
+                    <h3>You were signed out properly!</h3>
                 </td>
             </tr>
             <tr>

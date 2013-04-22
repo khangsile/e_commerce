@@ -74,14 +74,6 @@ and open the template in the editor.
         
         ?>
         </pre>
-        
-        
-        <pre>
-        <?php
-        var_dump($all_items);
-        
-        ?>
-        </pre>
     </body>
 </html>
 <?php
