@@ -172,19 +172,22 @@ ddsmoothmenu.init({
                     $item_title = $all_items[$counter]["title"];
                     $item_description = $all_items[$counter]["item_description"];
                     $item_price = $all_items[$counter]["item_price"];
+                    $item_id = $all_items[$counter]["item_id"];
             
                     if ($counter%3!=0)
                         echo "<div class=\"product_box\">";
                     else
                         echo "<div class=\"product_box no_margin_right\">";
 
-                    echo "<a href=\"product_detail.html\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
+                    echo "<a href=\"itemdetail.php?itemid=$item_id\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
                     echo "<h3>$item_title</h3>";
-                    echo "<p class=\"product_price\">$item_price</p>";
+                    echo "<p class=\"product_price\"> $$item_price</p>";
                     echo "<a href=\"shoppingcart.html\" class=\"add_to_card\">Add to Cart</a>";
-                    echo "<a href=\"productdetail.html\" class=\"detail\">Detail</a>";
+                    echo "<a href=\"itemdetail.php?itemid=$item_id\" class=\"detail\">Detail</a>";
                     echo "</div>";
                 }
+                
+                $dbconnector->close();
             ?>
         </div> 
         <div class="cleaner"></div>
@@ -195,7 +198,7 @@ ddsmoothmenu.init({
 			<a href="index.html">Home</a> | <a href="products.html">Products</a> | <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> | <a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
 		</p>
 
-    	Copyright © 2048 <a href="#">Your Company Name</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+    	Copyright © 2048 <a href="#">Our Company</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
     </div> <!-- END of templatemo_footer -->
     
 </div> <!-- END of templatemo_wrapper -->
