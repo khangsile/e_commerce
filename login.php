@@ -10,24 +10,23 @@ if ($_SESSION['username'] == NULL){
     $username = $_POST['username'];
     $password = $_POST['password'];
 }
-else {
-    $username = $_SESSION['username'];
-    $password = $_SESSION['password'];
-}
+
 $valid = $dbconnector->login($username, $password);
 
 
 //if valid username we can continue to the main page
 if ($valid) {
-    $account_type = $dbconnector->get_user_type($username);
-    $_SESSION['username'] = $username;
-    $_SESSION['password'] = $password;
-    $_SESSION['user_type'] = $account_type;
-    if($account_type == 1) {
+    $user = $dbconnector->get_user($username);
+    $_SESSION['username'] = $user[0]["user_name"];
+    $_SESSION['password'] = $user[0]["user_pass"];
+    $_SESSION['user_type'] = $user[0]["user_type"];
+    
+
+    if($_SESSION['user_type'] == 1) {
         header("location: managerhome.php");
-    } else if ($account_type == 2) {
+    } else if ($_SESSION['user_type'] == 2) {
         header("location: staffhome.php");
-    } else if ($account_type == 3) {
+    } else if ($_SESSION['user_type'] == 3) {
         header("location: memberhome.php");
     }
     

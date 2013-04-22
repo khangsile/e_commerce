@@ -15,5 +15,6 @@ else {
     $dbconnector->set_item_count($item_id, $new_count);
     header("location: inventory.php");
 }
-// LOG DATA OF UPDATES??
+//LOG INVENTORY UPDATES
+
 ?>

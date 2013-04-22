@@ -1,5 +1,7 @@
 <?php
 session_start();
+session_destroy();
+session_start();
 ?>
 <!DOCTYPE html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -58,7 +60,7 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="index.php">Food</a></h1>
+        	<h1><a href="index.php">E commerce</a></h1>
         </div>
         
         <div id="header_right">
@@ -71,7 +73,7 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="products.html">Products</a>
                     <ul>
                         <li><a href="http://www.templatemo.com/page/1">Sub menu 1</a></li>
@@ -107,7 +109,7 @@ ddsmoothmenu.init({
             <div class="cleaner"></div>
     	</div>
     </div> <!-- END of templatemo_menu -->
-    <div id="content" class="float_r">
+    <div id="content" class="float_r" width=>
         <form name="login" method="post" action="login.php">
                 <td text-align="right">Username :</td>
                 <td><input name="username" type="text" id="username" display="inline" text-align="right"></input></td>
