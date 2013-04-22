@@ -200,11 +200,9 @@ h6 {
 	display: block; 
 	width: 164px; 
 	height: 20px; 
-	font-size: 12px; 
-	text-indent: -10000px; 
-	color: #999; 
+	color: #08aee3; 
 	text-align: left; 
-	background: url(../images/templatemo_logo.png) no-repeat top left; 
+	background: top left; 
 }
 
 #header_right { 
