@@ -56,6 +56,23 @@ class DatabaseConnector {
         return $permissions_array;
     }
     
+    public function add_new_item($new_item_title, $new_item_price, $new_item_description, $new_item_count) {
+        $this->add_new_item_query($new_item_title, $new_item_price, $new_item_description, $new_item_count);
+    }
+    private function add_new_item_query($new_item_title, $new_item_price, $new_item_description, $new_item_count) {
+        $query = "INSERT INTO items (title, item_description, item_price)
+                         VALUES('$new_item_title', '$new_item_description', $new_item_price)";
+        
+        $this->dbconn->query($query);
+        $last_id = $this->dbconn->insert_id;
+        
+        $query = "INSERT INTO inventory (item_id, item_count)
+                         VALUES($last_id, $new_item_count)";        
+        $this->dbconn->query($query);
+        
+        return TRUE;
+    }
+    
     //GET ITEM COUNT
     public function get_item_count($item_id) {
         return $this->get_item_count_query($item_id);
