@@ -115,13 +115,6 @@ class DatabaseConnector {
         return $this->get_orders_query($date);
     }
     
-    public function get_permissions_from_type($usertype) {
-        //$usertype = $this->sql_protect($usertype);
-
-        $permissions_array = $this->get_permissions_query($usertype);
-        return $permissions_array;
-    }
-    
     public function get_unshipped_orders($date) {
         
         return $this->get_unshipped_orders_query($date);
