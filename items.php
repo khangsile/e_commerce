@@ -92,6 +92,9 @@ ddsmoothmenu.init({
                 if($user[0]["inventory"]==1) {
                     echo'<li><a href="inventory.php">Inventory</a></li>';
                 }
+                if($user[0]["statistics"]==1) {
+                    echo'<li><a href="analytics.php">Analytics</a></li>';
+                }
                 
                 $dbconnector->close();
                 ?>

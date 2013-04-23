@@ -1,17 +1,16 @@
 <?php
-    session_start();
-
-    if ($_SESSION['username'] == NULL){
-        header("location: index.php");
-    }
+session_start();
+if ($_SESSION['username'] == NULL){
+    header("location: index.php");
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Food</title>
-<meta name="keywords" content="station shop, cart, free templates, website templates, CSS, HTML" />
-<meta name="description" content="Station Shop, Shopping Cart, free CSS template by templatemo.com" />
+<meta name="keywords" content="station shop, products, theme, website templates, CSS, HTML" />
+<meta name="description" content="Station Shop Products - free CSS template by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" type="text/css" href="templatemo_352_station_shop/css/ddsmoothmenu.css" />
@@ -61,11 +60,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="http://www.templatemo.com">Food
+        	<h1><a href="http://www.templatemo.com">Food</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
 		</div>
         
         <div class="cleaner"></div>
@@ -87,14 +86,14 @@ ddsmoothmenu.init({
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
-                    echo"<li><a href=\"shipping.php\" class=\"selected\">Shipping</a></li>'";
+                    echo"<li><a href=\"shipping.php\">Shipping</a></li>'";
                 }
                 
                 if($user[0]["inventory"]==1) {
                     echo'<li><a href="inventory.php">Inventory</a></li>';
                 }
                 if($user[0]["statistics"]==1) {
-                    echo'<li><a href="analytics.php">Analytics</a></li>';
+                    echo'<li><a href="analytics.php" class="selected">Analytics</a></li>';
                 }
                 
                 $dbconnector->close();
@@ -125,7 +124,7 @@ ddsmoothmenu.init({
         	<div class="sidebar_box"><span class="bottom"></span>
             	<h3>Categories</h3>   
                 <div class="content"> 
-                	<ul class="sidebar_list">
+                    <ul class="sidebar_list">
                     	<li class="first"><a href="#">All</a></li>
                         <li><a href="#">Outdoor</a></li>
                         <li><a href="#">Fine Dining</a></li>
@@ -168,65 +167,8 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>Orders</h1>
-                <table width="680px" cellspacing="0" cellpadding="5">
-                        <tr bgcolor="#ddd">
-                        	<th width="220" align="left">Order</th> 
-                        	<th width="180" align="left">Date</th> 
-                       	  	<th width="100" align="center">Items</th> 
-                        	<th width="60" align="right">User</th> 
-                        	<th width="60" align="right">Total </th> 
-                        	<th width="90"> </th>
-                      	</tr>
-                            <?php                                
-                                $dbconnector->open();
-                                
-                                $orders = $dbconnector->get_unshipped_orders(null);
-                                
-                                $total = 0;
-                                for($i=0;$i<count($orders);$i++) {
-                                    echo "<tr>";
-                                    
-                                    $order_no = $orders[$i]['idOrders'];
-                                    echo "<td>$order_no</td>";
-                                    
-                                    $order_date = $orders[$i]['ordered_date'];
-                                    echo "<td>$order_date</td>";
-                                    
-                                    $items = $dbconnector->get_items_from_order($order_no);
-                                    echo "<td align=\"center\">".count($items)."</td>";
-                                    
-                                    $order_total = 0;
-                                    for ($j=0; $j<count($items); $j++) {
-                                        $item_info = $dbconnector->get_item_info($items[$j]['item_link']);
-                                        $price = $item_info['item_price'];
-                                        $order_total+=$price;
-                                    }
-                                    
-                                    echo "<td align=\"right\">$i </td>";
-                                    
-                                    $total+=$order_total;
-                                    echo "<td align=\"right\">$order_total</td>";
-                                   
-                                    echo "<td align=\"center\"><a href=\"shiporder.php?order=$order_no\">Ship</a></td></tr>";
-                                } 
-                                
-                                $dbconnector->close();
-                            ?>
-                            <tr>
-                        	<td colspan="3" align="right"  height="30px"></td>;
-                            <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
-                            <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>
-                            <td style="background:#ddd; font-weight:bold"> </td>
-						</tr>
-					</table>
-                    <div style="float:right; width: 215px; margin-top: 20px;">
-                    
-					<p><a href="shoppingcart.php">Proceed to checkout</a></p>
-                    <p><a href="items.php">Continue shopping</a></p>
-                    	
-                    </div>
-            
+        	<h1>Analytics</h1>
+
         </div> 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
@@ -236,7 +178,7 @@ ddsmoothmenu.init({
 			<a href="index.html">Home</a> | <a href="products.html">Products</a> | <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> | <a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
 		</p>
 
-    	Copyright © 2048 <a href="#">Your Company Name</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+    	Copyright © 2048 <a href="#">Our Company</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
     </div> <!-- END of templatemo_footer -->
     
 </div> <!-- END of templatemo_wrapper -->
