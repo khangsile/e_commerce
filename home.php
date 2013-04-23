@@ -1,3 +1,10 @@
+<?php
+    session_start();
+
+    if ($_SESSION['username'] == NULL){
+        header("location: index.php");
+    }
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -75,7 +82,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>

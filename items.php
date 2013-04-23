@@ -8,7 +8,7 @@ if ($_SESSION['username'] == NULL){
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Station Shop Theme - Products Page</title>
+<title>Food</title>
 <meta name="keywords" content="station shop, products, theme, website templates, CSS, HTML" />
 <meta name="description" content="Station Shop Products - free CSS template by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
@@ -60,11 +60,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="http://www.templatemo.com">Ecommerce</a></h1>
+        	<h1><a href="http://www.templatemo.com">Food</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>            
+	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="#">Log In</a>            
 		</div>
         
         <div class="cleaner"></div>
@@ -73,11 +73,11 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html" class="selected">Products</a> </li>
+                <li><a href="home.php">Home</a></li>
+                <li><a href="items.php" class="selected">Products</a> </li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
+                <li><a href="shoppingcart.php">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <br style="clear: left" />
