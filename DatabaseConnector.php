@@ -73,8 +73,100 @@ class DatabaseConnector {
         return $this->get_item_info_query($item_id);
     }
     
+    public function get_orders($date) {
+     
+        return $this->get_orders_query($date);
+    }
+    
+    public function get_unshipped_orders($date) {
+        
+        return $this->get_unshipped_orders_query($date);
+    }
+    
+    public function get_user_orders($user_id) {
+        $purchases = $this->get_user_purchases_query($user_id);
+        $orders = array();
+        
+        for($i=0; $i<count($purchases);$i++) {
+            $orders[] = $this->get_order_query($purchases[$i]['order_id']);
+        }
+        
+        return $orders;
+    }
+    
+    public function get_user_from_order($order_id) {
+        
+        return $this->get_user_from_order_query($order_id);
+    }
+    
+    private function get_user_from_order_query($order_id) {
+        if (!$order_id)
+            return null;
+        
+        $query = "SELECT user_id FROM purchases WHERE order_id = '$order_id'";
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array[0];
+    }
+    
+    private function get_user_purchases_query($user_id) {
+        if (!$user_id)
+            return null;
+        
+        $query = "SELECT * FROM purchases WHERE user_id='$user_id'";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array;
+    }
+    
+    private function get_order_query($order_id) {
+        if (!$order_id)
+            return null;
+        
+        $query = "SELECT * FROM Orders WHERE idOrders = '$order_id'";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array[0];
+    }
+    
+    //null if you want all unshipped
+    private function get_unshipped_orders_query($date) {
+        $query = "";
+        
+        if ($date == null)
+            $query = "SELECT * FROM Orders WHERE shipped_date IS NULL";
+        else
+            $query = "SELECT * FROM Orders WHERE shipped_date IS NULL AND ordered_date>'$date'";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array;
+    }
+    //null if you want all orders
+    private function get_orders_query($date) {
+        $query = "";
+        
+        if ($date == null)
+            $query = "SELECT * FROM Orders";
+        else
+            $query = "SELECT * FROM Orders WHERE ordered_date> '$date'";
+        
+        $query = "SELECT * FROM Orders";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array;
+    }
+    
     private function get_item_info_query($item_id) {
-        $query = "SELECT * FROM items WHERE item_id='$item_id'";
+        $query = "SELECT * FROM items WHERE item_id ='$item_id'";
         
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
@@ -114,8 +206,8 @@ class DatabaseConnector {
     public function register($username, $password, $email, $user_type) {
         $query = "INSERT INTO users(user_name, user_pass, user_type, user_email)
                   VALUES ('$username', '$password', '$user_type', '$email')";
+       
         $this->dbconn->query($query);
-        
     }
     
     private function get_all_users_query() {
@@ -123,6 +215,7 @@ class DatabaseConnector {
         $result = $this->dbconn->query($query);
         $rows = array();
         $rows = $this->results_to_array($result);
+        
         return $rows;
     }
     
@@ -130,6 +223,7 @@ class DatabaseConnector {
     public function get_user_permissions($username) {
         return($this->get_user_permissions_query($username));
     }
+    
     private function get_user_permissions_query($username) {
         $query2 = "SELECT * FROM user_types
                    JOIN (users) ON (user_types.user_type = users.user_type)
@@ -154,8 +248,7 @@ class DatabaseConnector {
         $query = "UPDATE inventory SET inventory.item_count = '$new_count' WHERE inventory.item_id = '$item_id'";
         $this->dbconn->query($query);
     }
-    
-    
+     
     //GET ALL ITEMS
     public function get_all_Items() {
         $results = $this->get_all_items_query();
