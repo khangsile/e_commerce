@@ -56,6 +56,16 @@ class DatabaseConnector {
         return $permissions_array;
     }
     
+    //GET ITEM COUNT
+    public function get_item_count($item_id) {
+        return $this->get_item_count_query($item_id);
+    }
+    private function get_item_count_query($item_id) { 
+        $query = "SELECT item_count FROM inventory WHERE item_id='$item_id'";
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        return $result_array[0]["item_count"];
+    }
     public function get_item_info($item_id) {
         
         //$item_id = $this->sql_protect($item_id);

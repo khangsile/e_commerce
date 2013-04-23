@@ -1,17 +1,16 @@
 <?php
-    session_start();
-
-    if ($_SESSION['username'] == NULL){
-        header("location: index.php");
-    }
+session_start();
+if ($_SESSION['username'] == NULL){
+    header("location: index.php");
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Food</title>
-<meta name="keywords" content="station shop, cart, free templates, website templates, CSS, HTML" />
-<meta name="description" content="Station Shop, Shopping Cart, free CSS template by templatemo.com" />
+<meta name="keywords" content="station shop, product detail, web design theme, free website template, templatemo" />
+<meta name="description" content="Station Shop Theme, Product Detail, free template provided by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" type="text/css" href="templatemo_352_station_shop/css/ddsmoothmenu.css" />
@@ -49,9 +48,9 @@ ddsmoothmenu.init({
 
 <link rel="stylesheet" type="text/css" media="all" href="templatemo_352_station_shop/css/jquery.dualSlider.0.2.css" />
 
-<script src="templatemo_352_station_shop/js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="templatemo_352_station_shop/js/jquery.easing.1.3.js" type="text/javascript"></script>
-<script src="templatemo_352_station_shop/js/jquery.timers-1.2.js" type="text/javascript"></script>
+<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
+<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
 
 </head>
 
@@ -61,11 +60,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="http://www.templatemo.com">Food
+        	<h1><a href="home.php">Food</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="account.php">My Account</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -76,7 +75,7 @@ ddsmoothmenu.init({
             <ul>
                 <li><a href="home.php">Home</a></li>
                 <li><a href="items.php">Products</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="about.html" class="selected">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -88,7 +87,7 @@ ddsmoothmenu.init({
             	Shopping Cart: <strong>
                     <?php
                         echo count($_SESSION['shopping_cart']);
-                    ?> 
+                    ?>
                     Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
@@ -106,7 +105,7 @@ ddsmoothmenu.init({
         	<div class="sidebar_box"><span class="bottom"></span>
             	<h3>Categories</h3>   
                 <div class="content"> 
-                	<ul class="sidebar_list">
+                    <ul class="sidebar_list">
                     	<li class="first"><a href="#">All</a></li>
                         <li><a href="#">Outdoor</a></li>
                         <li><a href="#">Fine Dining</a></li>
@@ -149,46 +148,59 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>Inventory Management</h1>
-        	<table width="680px" cellspacing="0" cellpadding="5">
-                   	  	<tr bgcolor="#ddd">
-                        	<th width="220" align="left">Title </th> 
-                        	<th width="180" align="left">Description </th> 
-                       	  	<th width="100" align="center">Quantity </th> 
-                        	<th width="60" align="right">Price </th> 
-                        	<th width="60" align="right">Update</th> 
-                        	<th width="90"> </th>
-                      	</tr>
-                            <?php
-                                include "DatabaseConnector.php";                                
-                                $dbconnector = new DatabaseConnector();
-                                $dbconnector->open();
-                                $items = $dbconnector->get_all_Items();
-                                for($i=0;$i<count($items);$i++) {
-                                    echo "<tr>";
-                                    
-                                    $item_title = $items[$i]["title"];
-                                    echo "<td>$item_title</td>";
-                                    
-                                    $item_description = $items[$i]["item_description"];
-                                    echo "<td>$item_description</td>";
-                                    
-                                    $item_count = $items[$i]["item_count"];
-                                    echo "<td align=\"center\">$item_count</td>";
-                                    
-                                    $item_price = $items[$i]["item_price"];
-                                    echo "<td align=\"right\">$$item_price </td>";
-                                    
-                                    $item_update_id = $items[$i]["item_id"];
-                                    echo "<td align=\"center\"><a href=\"itemupdatepage.php?i=$item_update_id\">Update</a></td></tr>";
-                                   
-                                }
-                                
-                                $dbconnector->close();
+        	
+            <?php
+                include "DatabaseConnector.php";
+                
+                $dbconnector = new DatabaseConnector();
+                $dbconnector->open();                
+                $item_id = $_GET["i"];               
+                $item_info = $dbconnector->get_item_info($item_id);                
+                $item_name = $item_info["title"];
+                $item_count = $dbconnector->get_item_count($item_id);
+                $dbconnector->close();
+                echo "<h1>$item_name</h1>";
+            ?>
+            
+            <div class="content_half float_l">
+				<table>
+                    <tr>
+                        <td height="30" width="160">Price:</td>
+                        <td>
+                            <?php 
+                                $item_price = $item_info['item_price'];
+                                echo "$$item_price"; 
                             ?>
-                            </tr>
-                    </table>                    	
-                    </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="30">Availability:</td>
+                        <td>
+                            <?php
+                                echo "In Stock";
+                            ?>
+                        </td>
+                    </tr>
+                    <form name="quantity" method="post" action="itemupdater.php?i=<?php echo $item_id ?>">
+                        <tr><td height="30">Quantity</td>
+                            <td><input type="text" value="<?php echo"$item_count" ?>" style="width: 20px; text-align: right" name ="item_count"/>
+                        </td></tr>
+                        <tr><td>
+                            <input name="submit" type="submit" id="submit" class="sub_btn"></input>
+                        </td></tr>
+                    </form>
+                </table>
+            <div class="cleaner h30"></div>
+            
+            <h5>Product Description</h5>
+            <p>
+                <?php 
+                    $item_description = $item_info['item_description'];
+                    echo "$item_description";
+                ?>
+            </p>	
+            
+            <div class="cleaner h50"></div>
             
         </div> 
         <div class="cleaner"></div>
@@ -206,83 +218,3 @@ ddsmoothmenu.init({
 
 </body>
 </html>
-
-
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <div>
-            <table>
-            <tr><td>
-                    <div class="link"> <a href="signout.php">Sign Out</a></div>
-            </td></tr>
-            </table>
-            <table>
-            <td><div class="link" ><a href="login.php">Home</a></div></td>
-            </table>
-            <table>
-                <tr><td>
-                    <h3>Inventory Management. </h3>
-                    <h3> Manager: <?php echo $_SESSION['username']?>!</h3>
-                </td></tr>
-                <tr><td>
-                    <h4>Inventory Update:</h4>            
-                </td></tr>
-            </table>
-            <form name="login" method="post" action="inventoryupdate.php">
-                <table>
-                    <tr>
-                    <td>Item ID :</td>
-                    <td><input name="item_id" type="text" id="item_id"></input></td>
-                    </tr>
-                    <tr>
-                    <td>Updated Quantity :</td>
-                    <td><input name="new_count" type="text" id="new_count"></input></td>
-                    </tr>
-                    <tr>
-                    <td><input name="submit" type="submit" id="submit"></input></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <pre>
-        <?php
-        include 'DatabaseConnector.php';
-        $dbconnector = new DatabaseConnector();
-        $dbconnector->open();
-        $all_items = $dbconnector->get_all_Items();
-        
-        for($counter = 0; $counter< count($all_items); $counter++) {
-            $item_title = $all_items[$counter]["title"];
-            $item_id = $all_items[$counter]["item_id"];
-            $item_description = $all_items[$counter]["item_description"];
-            $item_price = $all_items[$counter]["item_price"];
-            $item_count = $all_items[$counter]["item_count"];
-            
-            echo '<br/>';
-            echo 'Item: '; echo $item_title; echo'<br/>';
-            echo 'Item ID: '; echo $item_id; echo'<br/>';
-            echo 'Item Description: '; echo $item_description; echo '<br/>';
-            echo 'Item Price: '; echo $item_price; echo'<br/>';
-            echo 'Item Count: '; echo $item_count; echo'<br/>';
-        }
-        
-        ?>
-        </pre>
-    </body>
-</html>
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
