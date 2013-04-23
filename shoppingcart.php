@@ -84,9 +84,6 @@ ddsmoothmenu.init({
                 
                 echo'<li><a href="home.php">Home</a></li>';
                 echo'<li><a href="items.php">Products</a></li>';
-                
-                echo'<li><a href="about.html">About</a></li>';
-                echo'<li><a href="faqs.html">FAQs</a></li>';
                 echo'<li><a href="shoppingcart.php" class="selected">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
