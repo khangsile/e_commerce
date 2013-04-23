@@ -1,17 +1,19 @@
 <?php
-session_start();
-if ($_SESSION['username'] == NULL){
-    header("location: index.php");
-}
+    session_start();
+
+    if ($_SESSION['username'] == NULL){
+        header("location: index.php");
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Food</title>
-<meta name="keywords" content="station shop, theme, free template, templatemo, CSS, HTML" />
-<meta name="description" content="Station Shop Theme, free CSS template provided by templatemo.com" />
+<meta name="keywords" content="station shop, cart, free templates, website templates, CSS, HTML" />
+<meta name="description" content="Station Shop, Shopping Cart, free CSS template by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+
 <link rel="stylesheet" type="text/css" href="templatemo_352_station_shop/css/ddsmoothmenu.css" />
 
 <script type="text/javascript" src="templatemo_352_station_shop/js/jquery.min.js"></script>
@@ -45,29 +47,11 @@ ddsmoothmenu.init({
 
 </script>
 
-<link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
+<link rel="stylesheet" type="text/css" media="all" href="templatemo_352_station_shop/css/jquery.dualSlider.0.2.css" />
 
 <script src="templatemo_352_station_shop/js/jquery-1.3.2.min.js" type="text/javascript"></script>
 <script src="templatemo_352_station_shop/js/jquery.easing.1.3.js" type="text/javascript"></script>
 <script src="templatemo_352_station_shop/js/jquery.timers-1.2.js" type="text/javascript"></script>
-<script src="templatemo_352_station_shop/js/jquery.dualSlider.0.3.min.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-    
-    $(document).ready(function() {
-        
-        $(".carousel").dualSlider({
-            auto:true,
-            autoDelay: 6000,
-            easingCarousel: "swing",
-            easingDetails: "easeOutBack",
-            durationCarousel: 1000,
-            durationDetails: 600
-        });
-        
-    });
-    
-</script>
 
 </head>
 
@@ -75,13 +59,13 @@ ddsmoothmenu.init({
 
 <div id="templatemo_wrapper">
 	<div id="templatemo_header">
-    
+    	
     	<div id="site_title">
-        	<h1><a href="home.php">Food</a></h1>
+        	<h1><a href="http://www.templatemo.com">Food
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="account.php">My Account</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -111,10 +95,10 @@ ddsmoothmenu.init({
                 
                 if($user[0]["inventory"]==1) {
                     echo'<li><a href="inventory.php">Inventory</a></li>';
-                }                
-
+                }
+                
+                $dbconnector->close();
                 ?>
-   
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->
@@ -123,7 +107,7 @@ ddsmoothmenu.init({
             	Shopping Cart: <strong>
                     <?php
                         echo count($_SESSION['shopping_cart']);
-                    ?>
+                    ?> 
                     Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
@@ -141,7 +125,7 @@ ddsmoothmenu.init({
         	<div class="sidebar_box"><span class="bottom"></span>
             	<h3>Categories</h3>   
                 <div class="content"> 
-                    <ul class="sidebar_list">
+                	<ul class="sidebar_list">
                     	<li class="first"><a href="#">All</a></li>
                         <li><a href="#">Outdoor</a></li>
                         <li><a href="#">Fine Dining</a></li>
@@ -157,25 +141,25 @@ ddsmoothmenu.init({
             	<h3>Best Sellers </h3>   
                 <div class="content"> 
                 	<div class="bs_box">
-                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 01" /></a>
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 01" /></a>
                         <h4><a href="#">Donec nunc nisl</a></h4>
                         <p class="price">$10</p>
                         <div class="cleaner"></div>
                     </div>
                     <div class="bs_box">
-                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 02" /></a>
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 02" /></a>
                         <h4><a href="#">Aenean eu tellus</a></h4>
                         <p class="price">$12</p>
                         <div class="cleaner"></div>
                     </div>
                     <div class="bs_box">
-                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 03" /></a>
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 03" /></a>
                         <h4><a href="#">Phasellus ut dui</a></h4>
                         <p class="price">$20</p>
                         <div class="cleaner"></div>
                     </div>
                     <div class="bs_box">
-                    	<a href="#"><img src="templatemo_352_station_shop/images/templatemo_image_01.jpg" alt="Image 04" /></a>
+                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 04" /></a>
                         <h4><a href="#">Vestibulum ante</a></h4>
                         <p class="price">$16</p>
                         <div class="cleaner"></div>
@@ -184,28 +168,55 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>VIP Products</h1>
-            <div class="product_box">
-            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/01.jpg" alt="Image 01" /></a>
-                <h3>Integer eleifend sed</h3>
-                <p class="product_price">$ 100</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-                <a href="productdetail.html" class="detail">Detail</a>
-            </div>        	
-            <div class="product_box">
-            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/02.jpg" alt="Image 02" /></a>
-                <h3>Nam cursus facilisis</h3>
-                <p class="product_price">$ 200</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-                <a href="productdetail.html" class="detail">Detail</a>
-            </div>        	
-            <div class="product_box no_margin_right">
-            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/03.jpg" alt="Image 03" /></a>
-                <h3>Mauris consectetur</h3>
-                <p class="product_price">$ 120</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-                <a href="productdetail.html" class="detail">Detail</a>
-            </div>        	
+        	<h1>Orders</h1>
+        	<table width="680px" cellspacing="0" cellpadding="5">
+                   	  	<tr bgcolor="#ddd">
+                        	<th width="220" align="left">Order</th> 
+                        	<th width="180" align="left">Date</th> 
+                       	  	<th width="100" align="center">Items</th> 
+                        	<th width="60" align="right">User</th> 
+                        	<th width="60" align="right">Total </th> 
+                        	<th width="90"> </th>
+                      	</tr>
+                            <?php                                
+                                $dbconnector = new DatabaseConnector();
+                                $dbconnector->open();
+                                
+                                $orders = $dbconnector->get_unshipped_orders(null);
+                                
+                                for($i=0;$i<count($orders);$i++) {
+                                    echo "<tr>";
+                                    
+                                    $order_no = $orders[$i]['idOrders'];
+                                    echo "<td>$order_no</td>";
+                                    
+                                    $order_date = $orders[$i]['ordered_date'];
+                                    echo "<td>$order_date</td>";
+                                    
+                                    echo "<td align=\"center\">1</td>";
+                                    
+                                    echo "<td align=\"right\">$i </td>";
+                                    echo "<td align=\"right\">5 </td>";
+                                   
+                                    echo "<td align=\"center\"><a href=\"removeitem.php?index=$i\">Remove</a></td></tr>";
+                                } 
+                                
+                                $dbconnector->close();
+                            ?>
+                            
+                        	<td colspan="3" align="right"  height="30px">Have you modified your basket? Please click here to <a href="shoppingcart.php"><strong>Update</strong></a>&nbsp;&nbsp;
+                            <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
+                            <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>
+                            <td style="background:#ddd; font-weight:bold"> </td>
+						</tr>
+					</table>
+                    <div style="float:right; width: 215px; margin-top: 20px;">
+                    
+					<p><a href="checkout.html">Proceed to checkout</a></p>
+                    <p><a href="items.php">Continue shopping</a></p>
+                    	
+                    </div>
+            
         </div> 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->

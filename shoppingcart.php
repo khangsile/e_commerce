@@ -65,7 +65,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="account.php">My Account</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -74,12 +74,31 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="items.php">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <?php
+                
+                include "DatabaseConnector.php";
+                
+                $dbconnector = new DatabaseConnector();
+                $dbconnector->open();
+                $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
+                
+                echo'<li><a href="home.php" class="selected">Home</a></li>';
+                echo'<li><a href="items.php">Products</a></li>';
+                
+                echo'<li><a href="about.html">About</a></li>';
+                echo'<li><a href="faqs.html">FAQs</a></li>';
+                echo'<li><a href="shoppingcart.php">Checkout</a></li>';
+                
+                if ($user[0]["shipping"]==1)  {
+                    echo"<li><a href=\"shipping.php\">Shipping</a></li>'";
+                }
+                
+                if($user[0]["inventory"]==1) {
+                    echo'<li><a href="inventory.php">Inventory</a></li>';
+                }
+                
+                $dbconnector->close();
+                ?>
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->
@@ -160,7 +179,6 @@ ddsmoothmenu.init({
                         	<th width="90"> </th>
                       	</tr>
                             <?php
-                                include "DatabaseConnector.php";
                             
                                 $items = $_SESSION['shopping_cart'];
                                 

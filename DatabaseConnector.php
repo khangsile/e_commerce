@@ -128,10 +128,10 @@ class DatabaseConnector {
     private function get_unshipped_orders_query($date) {
         $query = "";
         
-        if (!$date)
-            $query = "SELECT * FROM Orders WHERE shipped_date = NULL";
+        if ($date == null)
+            $query = "SELECT * FROM Orders WHERE shipped_date IS NULL";
         else
-            $query = "SELECT * FROM Orders WHERE shipped_date = NULL AND ordered_date>'$date'";
+            $query = "SELECT * FROM Orders WHERE shipped_date IS NULL AND ordered_date>'$date'";
         
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
@@ -139,13 +139,15 @@ class DatabaseConnector {
         return $result_array;
     }
     //null if you want all orders
-    private function get_all_orders_query($date) {
+    private function get_orders_query($date) {
         $query = "";
         
-        if (!$date)
+        if ($date == null)
             $query = "SELECT * FROM Orders";
         else
             $query = "SELECT * FROM Orders WHERE ordered_date> '$date'";
+        
+        $query = "SELECT * FROM Orders";
         
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
