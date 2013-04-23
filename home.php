@@ -1,3 +1,9 @@
+<?php
+session_start();
+if ($_SESSION['username'] == NULL){
+    header("location: index.php");
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -84,12 +90,23 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="home.php" class="selected">Home</a></li>
-                <li><a href="items.php">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <?php
+                include "DatabaseConnector.php";
+                $dbconnector = new DatabaseConnector();
+                $dbconnector->open();
+                $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
+                
+                echo'<li><a href="home.php" class="selected">Home</a></li>';
+                echo'<li><a href="items.php">Products</a></li>';
+                
+                echo'<li><a href="about.html">About</a></li>';
+                echo'<li><a href="faqs.html">FAQs</a></li>';
+                echo'<li><a href="checkout.html">Checkout</a></li>';
+                if($user[0]["inventory"]==1){
+                echo'<li><a href="inventory.php">Inventory</a></li>';'';}
+                
+                ?>
+   
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->

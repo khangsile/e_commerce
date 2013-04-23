@@ -73,7 +73,7 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="home.php">Home</a></li>
                 <li><a href="products.html" class="selected">Products</a> </li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>

@@ -21,7 +21,7 @@ if(($username == NULL)||($password == NULL)||($email == NULL)||($user_type == NU
 {
     $error_message = $error_message." All fields must be filled.<br/>";
 }
-if (!(($user_type == 1)||($user_type == 2)||($user_type += 3))) {
+if (!(($user_type == 1)||($user_type == 2)||($user_type == 3))) {
     $error_message = $error_message." Accepted User Types are 1, 2, or 3.<br/>";
 }
 

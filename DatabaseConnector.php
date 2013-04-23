@@ -50,11 +50,10 @@ class DatabaseConnector {
     }
     
     public function get_permissions_from_type($usertype) {
-        $usertype = $this->sql_protect($usertype);
-        
+        //$usertype = $this->sql_protect($usertype);
+
         $permissions_array = $this->get_permissions_query($usertype);
-        
-        return $permissions;
+        return $permissions_array;
     }
     
     public function get_item_info($item_id) {
@@ -74,7 +73,7 @@ class DatabaseConnector {
     }
     
     private function get_permissions_query($usertype) {
-        $query = "SELECT * FROM permissions WHERE usertype = '$usertype'";
+        $query = "SELECT * FROM user_types WHERE user_type = '$usertype'";
         
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
@@ -103,9 +102,10 @@ class DatabaseConnector {
     }
     
     public function register($username, $password, $email, $user_type) {
-        $query = "INSERT INTO users(user_name, user_pass, user_email, user_type)
-                  VALUES ('$username', '$password', '$email', '$user_type')";
+        $query = "INSERT INTO users(user_name, user_pass, user_type, user_email)
+                  VALUES ('$username', '$password', '$user_type', '$email')";
         $this->dbconn->query($query);
+        
     }
     
     private function get_all_users_query() {
@@ -114,6 +114,20 @@ class DatabaseConnector {
         $rows = array();
         $rows = $this->results_to_array($result);
         return $rows;
+    }
+    
+    //GET PERMISSIONS
+    public function get_user_permissions($username) {
+        return($this->get_user_permissions_query($username));
+    }
+    private function get_user_permissions_query($username) {
+        $query2 = "SELECT * FROM user_types
+                   JOIN (users) ON (user_types.user_type = users.user_type)
+                   WHERE user_name='$username'";
+        $result = $this->dbconn->query($query2);
+        $rows = array();
+        $rows = $this->results_to_array($result);
+        
     }
     
     //GET USER TYPE

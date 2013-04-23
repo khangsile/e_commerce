@@ -60,7 +60,7 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="home.php">E commerce</a></h1>
+                    <h1><a href="home.php">E commerce</a></h1>
         </div>
         
         <div id="header_right">
