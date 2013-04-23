@@ -75,7 +75,7 @@ ddsmoothmenu.init({
             <ul>
                 <li><a href="home.php">Home</a></li>
                 <li><a href="items.php">Products</a></li>
-                <li><a href="about.html" class="selected">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="shoppingcart.php">Checkout</a></li>
             </ul>
@@ -153,7 +153,7 @@ ddsmoothmenu.init({
                 <td><input name="username" type="text" id="username" display="inline" text-align="right"></input></td>
        
                 <td text-align="right">Password :</td>
-                <td><input name="password" type="text" id="password" display="inline" text-align="right"></input></td>
+                <td><input name="password" type="password" id="password" display="inline" text-align="right"></input></td>
             
                 <input name="submit" type="submit" id="submit" class="sub_btn"></input>
             </form>

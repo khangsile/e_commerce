@@ -82,12 +82,12 @@ ddsmoothmenu.init({
                 $dbconnector->open();
                 $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
                 
-                echo'<li><a href="home.php" class="selected">Home</a></li>';
+                echo'<li><a href="home.php">Home</a></li>';
                 echo'<li><a href="items.php">Products</a></li>';
                 
                 echo'<li><a href="about.html">About</a></li>';
                 echo'<li><a href="faqs.html">FAQs</a></li>';
-                echo'<li><a href="shoppingcart.php">Checkout</a></li>';
+                echo'<li><a href="shoppingcart.php" class="selected">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
                     echo"<li><a href=\"shipping.php\">Shipping</a></li>'";
@@ -209,7 +209,7 @@ ddsmoothmenu.init({
                                 
                                 $dbconnector->close();
                             ?>
-                            
+                            <tr>
                         	<td colspan="3" align="right"  height="30px">Have you modified your basket? Please click here to <a href="shoppingcart.php"><strong>Update</strong></a>&nbsp;&nbsp;
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
                             <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>

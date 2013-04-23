@@ -81,8 +81,8 @@ ddsmoothmenu.init({
                 $dbconnector->open();
                 $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
                 
-                echo'<li><a href="home.php" class="selected">Home</a></li>';
-                echo'<li><a href="items.php">Products</a></li>';
+                echo'<li><a href="home.php">Home</a></li>';
+                echo'<li><a href="items.php" class="selected">Products</a></li>';
                 
                 echo'<li><a href="about.html">About</a></li>';
                 echo'<li><a href="faqs.html">FAQs</a></li>';

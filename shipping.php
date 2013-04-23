@@ -169,8 +169,8 @@ ddsmoothmenu.init({
         </div>
         <div id="content" class="float_r">
         	<h1>Orders</h1>
-        	<table width="680px" cellspacing="0" cellpadding="5">
-                   	  	<tr bgcolor="#ddd">
+                <table width="680px" cellspacing="0" cellpadding="5">
+                        <tr bgcolor="#ddd">
                         	<th width="220" align="left">Order</th> 
                         	<th width="180" align="left">Date</th> 
                        	  	<th width="100" align="center">Items</th> 
@@ -213,8 +213,8 @@ ddsmoothmenu.init({
                                 
                                 $dbconnector->close();
                             ?>
-                            
-                        	<td colspan="3" align="right"  height="30px">&nbsp;&nbsp</td>;
+                            <tr>
+                        	<td colspan="3" align="right"  height="30px"></td>;
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
                             <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>
                             <td style="background:#ddd; font-weight:bold"> </td>
