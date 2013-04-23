@@ -164,25 +164,25 @@ ddsmoothmenu.init({
                     <tr>
                         <td height="30" width="160">Item Title:</td>
                         <td>
-                            <input type="text" value="" style="width: 100px; text-align: right" name ="new_item_title"/>
+                            <input type="text" value="" style="width: 100px; text-align: left" name ="new_item_title"/>
                         </td>
                     </tr>
                     <tr>
                         <td height="30" width="160">Price:</td>                        
                         <td>
-                            <input type="number" value="" style="width: 30px; text-align: right" name ="new_item_price"/> 
+                            <input type="number" value="" style="width: 30px; text-align: left" name ="new_item_price" min="0"/> 
                         </td>
                     </tr>
                     <tr>
                         <td height="30" width="160">Quantity</td>                        
                         <td>
-                            <input type="number" value="" style="width: 30px; text-align: right" name ="new_item_count"/> 
+                            <input type="number" value="" style="width: 30px; text-align: left" name ="new_item_count" min="1"/> 
                         </td>
                     </tr>
                     <tr>
                         <td height="30" width="160">Description:</td>                        
                         <td>
-                            <input type="text" value="" style="width: 200px; height: 100px; text-align: right" name ="new_item_description"/> 
+                            <input type="text" value="" style="width: 200px; height: 100px; text-align: left; padding-top: 0" name ="new_item_description"/> 
                         </td>
                     </tr>
                         <tr><td>
