@@ -5,15 +5,13 @@
         header("location: index.php");
     }
 
-    $item_id = $_GET["itemid"];
+    $index = $_GET["index"];
 
-    if ($_SESSION['shopping_cart'] == NULL)
-        $_SESSION['shopping_cart'] = array();
-    
-    $_SESSION['shopping_cart'][] = $item_id;
+    $shopping_cart = $_SESSION['shopping_cart'];
+    unset($shopping_cart[$index]);
+    $_SESSION['shopping_cart'] = array_values($shopping_cart);
     
     header("location: shoppingcart.php");
-    
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

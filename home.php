@@ -81,7 +81,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>

@@ -21,6 +21,7 @@ if ($valid) {
     $_SESSION['password'] = $user[0]["user_pass"];
     $_SESSION['user_type'] = $user[0]["user_type"];
     $_SESSION['shopping_cart'] = array();
+
     header("location: home.php");
     
 } else {

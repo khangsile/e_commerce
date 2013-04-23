@@ -1,16 +1,17 @@
 <?php
-session_start();
-session_destroy();
-session_start();
+    session_start();
+
+    if ($_SESSION['username'] == NULL){
+        header("location: index.php");
+    }
 ?>
-<!DOCTYPE html>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Food</title>
-<meta name="keywords" content="station shop, product detail, web design theme, free website template, templatemo" />
-<meta name="description" content="Station Shop Theme, Product Detail, free template provided by templatemo.com" />
+<meta name="keywords" content="station shop, cart, free templates, website templates, CSS, HTML" />
+<meta name="description" content="Station Shop, Shopping Cart, free CSS template by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" type="text/css" href="templatemo_352_station_shop/css/ddsmoothmenu.css" />
@@ -48,9 +49,9 @@ ddsmoothmenu.init({
 
 <link rel="stylesheet" type="text/css" media="all" href="templatemo_352_station_shop/css/jquery.dualSlider.0.2.css" />
 
-<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
-<script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.timers-1.2.js" type="text/javascript"></script>
 
 </head>
 
@@ -60,11 +61,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="home.php">Food</a></h1>
+        	<h1><a href="http://www.templatemo.com">Food
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="index.php">Log In</a>
+	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -75,7 +76,7 @@ ddsmoothmenu.init({
             <ul>
                 <li><a href="home.php">Home</a></li>
                 <li><a href="items.php">Products</a></li>
-                <li><a href="about.html" class="selected">About</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
                 <li><a href="checkout.html">Checkout</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -87,7 +88,7 @@ ddsmoothmenu.init({
             	Shopping Cart: <strong>
                     <?php
                         echo count($_SESSION['shopping_cart']);
-                    ?>
+                    ?> 
                     Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
@@ -105,7 +106,7 @@ ddsmoothmenu.init({
         	<div class="sidebar_box"><span class="bottom"></span>
             	<h3>Categories</h3>   
                 <div class="content"> 
-                    <ul class="sidebar_list">
+                	<ul class="sidebar_list">
                     	<li class="first"><a href="#">All</a></li>
                         <li><a href="#">Outdoor</a></li>
                         <li><a href="#">Fine Dining</a></li>
@@ -120,7 +121,7 @@ ddsmoothmenu.init({
             <div class="sidebar_box"><span class="bottom"></span>
             	<h3>Best Sellers </h3>   
                 <div class="content"> 
-                    <div class="bs_box">
+                	<div class="bs_box">
                     	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 01" /></a>
                         <h4><a href="#">Donec nunc nisl</a></h4>
                         <p class="price">$10</p>
@@ -147,28 +148,76 @@ ddsmoothmenu.init({
                 </div>
             </div>
         </div>
-        
         <div id="content" class="float_r">
-            <form name="login" method="post" action="login.php">
-                <td text-align="right">Username :</td>
-                <td><input name="username" type="text" id="username" display="inline" text-align="right"></input></td>
-       
-                <td text-align="right">Password :</td>
-                <td><input name="password" type="text" id="password" display="inline" text-align="right"></input></td>
-            
-                <input name="submit" type="submit" id="submit" class="sub_btn"></input>
-            </form>
-            <form name="new_registration" method="post" action="registration.php">
-                <div>
-                    <tr><td>
-                         <div class="link"><a href="registration.php">New User Registration</a></div>
-                    </td></tr>
+        	<h1>Shopping Cart</h1>
+        	<table width="680px" cellspacing="0" cellpadding="5">
+                   	  	<tr bgcolor="#ddd">
+                        	<th width="220" align="left">Title </th> 
+                        	<th width="180" align="left">Description </th> 
+                       	  	<th width="100" align="center">Quantity </th> 
+                        	<th width="60" align="right">Price </th> 
+                        	<th width="60" align="right">Total </th> 
+                        	<th width="90"> </th>
+                      	</tr>
+                            <?php
+                                include "DatabaseConnector.php";
+                            
+                                $items = $_SESSION['shopping_cart'];
+                                
+                                $dbconnector = new DatabaseConnector();
+                                $dbconnector->open();
+                                
+                                $total = 0;
+                                
+                                for($i=0;$i<count($items);$i++) {
+                                    $item_info = $dbconnector->get_item_info($items[$i]);
+                                    echo "<tr>";
+                                    
+                                    $item_title = $item_info['title'];
+                                    echo "<td>$item_title</td>";
+                                    
+                                    $item_description = $item_info['item_description'];
+                                    echo "<td>$item_description</td>";
+                                    
+                                    echo "<td align=\"center\">1</td>";
+                                    
+                                    $item_price = $item_info['item_price'];
+                                    $total += $item_price;
+                                    echo "<td align=\"right\">$$item_price </td>";
+                                    echo "<td align=\"right\">$$item_price </td>";
+                                   
+                                    echo "<td align=\"center\"><a href=\"removeitem.php?index=$i\">Remove</a></td></tr>";
+                                }
+                                
+                                $dbconnector->close();
+                            ?>
+                            
+                        	<td colspan="3" align="right"  height="30px">Have you modified your basket? Please click here to <a href="shoppingcart.php"><strong>Update</strong></a>&nbsp;&nbsp;
+                            <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
+                            <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>
+                            <td style="background:#ddd; font-weight:bold"> </td>
+						</tr>
+					</table>
+                    <div style="float:right; width: 215px; margin-top: 20px;">
                     
-                </div>
-            </form>
-        </div>
-    </div>
-        
-        
- </body>
+					<p><a href="checkout.html">Proceed to checkout</a></p>
+                    <p><a href="items.php">Continue shopping</a></p>
+                    	
+                    </div>
+            
+        </div> 
+        <div class="cleaner"></div>
+    </div> <!-- END of templatemo_main -->
+    
+    <div id="templatemo_footer">
+    	<p>
+			<a href="index.html">Home</a> | <a href="products.html">Products</a> | <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> | <a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
+		</p>
+
+    	Copyright © 2048 <a href="#">Your Company Name</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+    </div> <!-- END of templatemo_footer -->
+    
+</div> <!-- END of templatemo_wrapper -->
+
+</body>
 </html>

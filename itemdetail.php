@@ -60,11 +60,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="index.php">Food</a></h1>
+        	<h1><a href="home.php">Food</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">My Cart</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="account.php">My Account</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
