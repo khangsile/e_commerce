@@ -64,7 +64,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="#">Log In</a>            
+	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
 		</div>
         
         <div class="cleaner"></div>
@@ -167,7 +167,7 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>New Products</h1>
+        	<h1>Products</h1>
             <?php                 
                 $dbconnector = new DatabaseConnector();
                 $dbconnector->open();

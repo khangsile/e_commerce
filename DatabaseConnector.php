@@ -21,12 +21,23 @@ class DatabaseConnector {
         }
     }
     
+    public function check_register($username, $email) {
+        $query = "SELECT * FROM users WHERE (user_name = '$username' OR user_email = '$email')";
+        
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+       
+        return empty($result_array);
+    }
+    
     public function login($username, $password) {
         //removed sql protector for now.
         $username = ($username);
         $password = ($password);
         
         $results = $this->login_query($username, $password);
+        
+        return (count($results)==1);
         
         if (count($results)==1)
             return true;
@@ -77,12 +88,21 @@ class DatabaseConnector {
     public function get_item_count($item_id) {
         return $this->get_item_count_query($item_id);
     }
+    
     private function get_item_count_query($item_id) { 
         $query = "SELECT item_count FROM inventory WHERE item_id='$item_id'";
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
         return $result_array[0]["item_count"];
     }
+    
+    public function get_items_from_order($order_id) {
+        
+        $items = $this->get_items_from_order_query($order_id);
+        
+        return $items;
+    }
+    
     public function get_item_info($item_id) {
         
         //$item_id = $this->sql_protect($item_id);
@@ -95,9 +115,21 @@ class DatabaseConnector {
         return $this->get_orders_query($date);
     }
     
+    public function get_permissions_from_type($usertype) {
+        //$usertype = $this->sql_protect($usertype);
+
+        $permissions_array = $this->get_permissions_query($usertype);
+        return $permissions_array;
+    }
+    
     public function get_unshipped_orders($date) {
         
         return $this->get_unshipped_orders_query($date);
+    }
+    
+    public function get_user_from_order($order_id) {
+        
+        return $this->get_user_from_order_query($order_id);
     }
     
     public function get_user_orders($user_id) {
@@ -111,9 +143,30 @@ class DatabaseConnector {
         return $orders;
     }
     
-    public function get_user_from_order($order_id) {
+    public function register($username, $password, $email, $user_type) {
+        $query = "INSERT INTO users(user_name, user_pass, user_type, user_email)
+                  VALUES ('$username', '$password', '$user_type', '$email')";
+       
+        $this->dbconn->query($query);
+    }
+    
+    //SET INVENTORY COUNTS
+    public function set_item_count($item_id, $new_count) {
+        $this->set_item_count_query($item_id, $new_count);
+        return;
+    }
+    
+    //***************************QUERIES****************************************
+    
+    private function get_items_from_order_query($order_id) {
+        if (!$order_id) 
+            return null;
         
-        return $this->get_user_from_order_query($order_id);
+        $query = "SELECT item_link FROM contains WHERE order_link = '$order_id'";
+        $result = $this->dbconn->query($query);
+        $result_array = $this->results_to_array($result);
+        
+        return $result_array;
     }
     
     private function get_user_from_order_query($order_id) {
@@ -205,28 +258,6 @@ class DatabaseConnector {
         }
     }
     
-    public function check_register($username, $email) {
-        $query = "SELECT * FROM users WHERE (user_name = '$username' OR user_email = '$email')";
-        $result = $this->dbconn->query($query);
-        //var_dump($result);
-        $result_array = $this->results_to_array($result);
-        //var_dump($result_array);
-        if (empty($result_array)) {
-            return TRUE;
-        }
-        else {
-            return FALSE;
-        }
-            
-    }
-    
-    public function register($username, $password, $email, $user_type) {
-        $query = "INSERT INTO users(user_name, user_pass, user_type, user_email)
-                  VALUES ('$username', '$password', '$user_type', '$email')";
-       
-        $this->dbconn->query($query);
-    }
-    
     private function get_all_users_query() {
         $query = "SELECT * FROM users";
         $result = $this->dbconn->query($query);
@@ -256,11 +287,6 @@ class DatabaseConnector {
         return($this->get_user_type_query($username));
     }
     
-    //SET INVENTORY COUNTS
-    public function set_item_count($item_id, $new_count) {
-        $this->set_item_count_query($item_id, $new_count);
-        return;
-    }
     private function set_item_count_query($item_id, $new_count) {
         $query = "UPDATE inventory SET inventory.item_count = '$new_count' WHERE inventory.item_id = '$item_id'";
         $this->dbconn->query($query);
@@ -269,9 +295,7 @@ class DatabaseConnector {
     //GET ALL ITEMS
     public function get_all_Items() {
         $results = $this->get_all_items_query();
-        
-        //additional work
-        
+                
         return $results;
     }
     
@@ -280,6 +304,7 @@ class DatabaseConnector {
         $result = $this->dbconn->query($query2);
         $rows = array();
         $rows = $this->results_to_array($result);
+        
         return($rows[0]["user_type"]);
     }
     
@@ -288,6 +313,7 @@ class DatabaseConnector {
         $result = $this->dbconn->query($query);
         $rows = array();
         $rows = $this->results_to_array($result);
+        
         return $rows;
     }
     
@@ -305,6 +331,8 @@ class DatabaseConnector {
         return $users;
     }
     
+    //*****************************HELPER***************************************
+    
     private function results_to_array($input) {
         $row = array();
         while ($row = $input->fetch_assoc()) {
@@ -321,8 +349,5 @@ class DatabaseConnector {
         return $escaped_input;
     }
 }
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 ?>

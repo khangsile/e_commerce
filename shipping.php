@@ -179,11 +179,11 @@ ddsmoothmenu.init({
                         	<th width="90"> </th>
                       	</tr>
                             <?php                                
-                                $dbconnector = new DatabaseConnector();
                                 $dbconnector->open();
                                 
                                 $orders = $dbconnector->get_unshipped_orders(null);
                                 
+                                $total = 0;
                                 for($i=0;$i<count($orders);$i++) {
                                     echo "<tr>";
                                     
@@ -193,18 +193,28 @@ ddsmoothmenu.init({
                                     $order_date = $orders[$i]['ordered_date'];
                                     echo "<td>$order_date</td>";
                                     
-                                    echo "<td align=\"center\">1</td>";
+                                    $items = $dbconnector->get_items_from_order($order_no);
+                                    echo "<td align=\"center\">".count($items)."</td>";
+                                    
+                                    $order_total = 0;
+                                    for ($j=0; $j<count($items); $j++) {
+                                        $item_info = $dbconnector->get_item_info($items[$j]['item_link']);
+                                        $price = $item_info['item_price'];
+                                        $order_total+=$price;
+                                    }
                                     
                                     echo "<td align=\"right\">$i </td>";
-                                    echo "<td align=\"right\">5 </td>";
+                                    
+                                    $total+=$order_total;
+                                    echo "<td align=\"right\">$order_total</td>";
                                    
-                                    echo "<td align=\"center\"><a href=\"removeitem.php?index=$i\">Remove</a></td></tr>";
+                                    echo "<td align=\"center\"><a href=\"shiporder.php?order=$order_no\">Ship</a></td></tr>";
                                 } 
                                 
                                 $dbconnector->close();
                             ?>
                             
-                        	<td colspan="3" align="right"  height="30px">Have you modified your basket? Please click here to <a href="shoppingcart.php"><strong>Update</strong></a>&nbsp;&nbsp;
+                        	<td colspan="3" align="right"  height="30px">&nbsp;&nbsp</td>;
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
                             <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>
                             <td style="background:#ddd; font-weight:bold"> </td>
@@ -212,7 +222,7 @@ ddsmoothmenu.init({
 					</table>
                     <div style="float:right; width: 215px; margin-top: 20px;">
                     
-					<p><a href="checkout.html">Proceed to checkout</a></p>
+					<p><a href="shoppingcart.php">Proceed to checkout</a></p>
                     <p><a href="items.php">Continue shopping</a></p>
                     	
                     </div>

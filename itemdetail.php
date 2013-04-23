@@ -201,7 +201,13 @@ ddsmoothmenu.init({
                         <td height="30">Availability:</td>
                         <td>
                             <?php
-                                echo "In Stock";
+                                $dbconnector->open();
+                                
+                                $item_count = $dbconnector->get_item_count($item_id);
+                                if ($item_count > 0)
+                                    echo "$item_count In Stock";
+                                else 
+                                    echo "Out of Stock";
                             ?>
                         </td>
                     </tr>
@@ -216,7 +222,7 @@ ddsmoothmenu.init({
                     <tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>
                 </table>
                 <div class="cleaner h20"></div>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
+                <a href=<?php echo "\"additem.php?itemid=$item_id\""; ?> class="add_to_card">Add to Cart</a>
 			</div>
             <div class="cleaner h30"></div>
             
