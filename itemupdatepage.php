@@ -9,8 +9,8 @@ if ($_SESSION['username'] == NULL){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Food</title>
-<meta name="keywords" content="station shop, product detail, web design theme, free website template, templatemo" />
-<meta name="description" content="Station Shop Theme, Product Detail, free template provided by templatemo.com" />
+<meta name="keywords" content="station shop, products, theme, website templates, CSS, HTML" />
+<meta name="description" content="Station Shop Products - free CSS template by templatemo.com" />
 <link href="templatemo_352_station_shop/css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" type="text/css" href="templatemo_352_station_shop/css/ddsmoothmenu.css" />
@@ -48,9 +48,9 @@ ddsmoothmenu.init({
 
 <link rel="stylesheet" type="text/css" media="all" href="templatemo_352_station_shop/css/jquery.dualSlider.0.2.css" />
 
-<script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
-<script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
-<script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery-1.3.2.min.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.easing.1.3.js" type="text/javascript"></script>
+<script src="templatemo_352_station_shop/js/jquery.timers-1.2.js" type="text/javascript"></script>
 
 </head>
 
@@ -60,11 +60,11 @@ ddsmoothmenu.init({
 	<div id="templatemo_header">
     	
     	<div id="site_title">
-        	<h1><a href="home.php">Food</a></h1>
+        	<h1><a href="http://www.templatemo.com">Food</a></h1>
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="#">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
 		</div>
         
         <div class="cleaner"></div>
@@ -73,12 +73,34 @@ ddsmoothmenu.init({
     <div id="templatemo_menu">
     	<div id="top_nav" class="ddsmoothmenu">
             <ul>
-                <li><a href="home.php">Home</a></li>
-                <li><a href="items.php">Products</a></li>
-                <li><a href="about.html" class="selected">About</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="checkout.html">Checkout</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <?php
+                
+                include "DatabaseConnector.php";
+                
+                $dbconnector = new DatabaseConnector();
+                $dbconnector->open();
+                $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
+                
+                echo'<li><a href="home.php">Home</a></li>';
+                echo'<li><a href="items.php">Products</a></li>';
+                echo'<li><a href="shoppingcart.php">Checkout</a></li>';
+                
+                if ($user[0]["shipping"]==1)  {
+                    echo"<li><a href=\"shipping.php\">Shipping</a></li>";
+                }
+                
+                if($user[0]["inventory"]==1) {
+                    echo'<li><a href="inventory.php" class="selected">Inventory</a></li>';
+                }
+                if($user[0]["statistics"]==1) {
+                    echo'<li><a href="analytics.php">Analytics</a></li>';
+                }
+                if($user[0]["promotions"]==1) {
+                    echo'<li><a href="promotions.php">Promotions</a></li>';
+                }
+                
+                $dbconnector->close();
+                ?>
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->
@@ -87,7 +109,7 @@ ddsmoothmenu.init({
             	Shopping Cart: <strong>
                     <?php
                         echo count($_SESSION['shopping_cart']);
-                    ?>
+                    ?> 
                     Products</strong> ( <a href="#">Show Cart</a> )
             </div>
         	<div id="templatemo_search">
@@ -147,12 +169,8 @@ ddsmoothmenu.init({
                 </div>
             </div>
         </div>
-        <div id="content" class="float_r">
-        	
-            <?php
-                include "DatabaseConnector.php";
-                
-                $dbconnector = new DatabaseConnector();
+        <div id="content" class="float_l">
+            <?php           
                 $dbconnector->open();                
                 $item_id = $_GET["i"];               
                 $item_info = $dbconnector->get_item_info($item_id);                
@@ -161,9 +179,7 @@ ddsmoothmenu.init({
                 $dbconnector->close();
                 echo "<h1>$item_name</h1>";
             ?>
-            
-            <div class="content_half float_l">
-				<table>
+            <table>
                     <tr>
                         <td height="30" width="160">Price:</td>
                         <td>
@@ -173,15 +189,7 @@ ddsmoothmenu.init({
                             ?>
                         </td>
                     </tr>
-                    <tr>
-                        <td height="30">Availability:</td>
-                        <td>
-                            <?php
-                                echo "In Stock";
-                            ?>
-                        </td>
-                    </tr>
-                    <form name="quantity" method="post" action="itemupdater.php?i=<?php echo $item_id ?>">
+                    <form name="quantity" method="post" action="itempromotion.php?i=<?php echo $item_id ?>">
                         <tr><td height="30">Quantity</td>
                             <td><input type="text" value="<?php echo"$item_count" ?>" style="width: 20px; text-align: right" name ="item_count"/>
                         </td></tr>
@@ -190,7 +198,7 @@ ddsmoothmenu.init({
                         </td></tr>
                     </form>
                 </table>
-            <div class="cleaner h30"></div>
+                <div class="cleaner h30"></div>
             
             <h5>Product Description</h5>
             <p>
@@ -198,10 +206,9 @@ ddsmoothmenu.init({
                     $item_description = $item_info['item_description'];
                     echo "$item_description";
                 ?>
-            </p>	
+            </p>  
             
             <div class="cleaner h50"></div>
-            
         </div> 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
@@ -211,10 +218,11 @@ ddsmoothmenu.init({
 			<a href="index.html">Home</a> | <a href="products.html">Products</a> | <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> | <a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
 		</p>
 
-    	Copyright © 2048 <a href="#">Your Company Name</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
+    	Copyright © 2048 <a href="#">Our Company</a> | Designed by <a href="http://www.templatemo.com" target="_parent">Free CSS Templates</a>
     </div> <!-- END of templatemo_footer -->
     
 </div> <!-- END of templatemo_wrapper -->
 
 </body>
 </html>
+

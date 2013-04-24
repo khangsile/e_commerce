@@ -87,7 +87,7 @@ ddsmoothmenu.init({
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
-                    echo"<li><a href=\"shipping.php\">Shipping</a></li>'";
+                    echo"<li><a href=\"shipping.php\">Shipping</a></li>";
                 }
                 
                 if($user[0]["inventory"]==1) {
@@ -95,6 +95,9 @@ ddsmoothmenu.init({
                 }
                 if($user[0]["statistics"]==1) {
                     echo'<li><a href="analytics.php">Analytics</a></li>';
+                }
+                if($user[0]["promotions"]==1) {
+                    echo'<li><a href="promotions.php">Promotions</a></li>';
                 }
                 
                 $dbconnector->close();

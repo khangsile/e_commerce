@@ -86,7 +86,7 @@ ddsmoothmenu.init({
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
-                    echo"<li><a href=\"shipping.php\">Shipping</a></li>'";
+                    echo"<li><a href=\"shipping.php\">Shipping</a></li>";
                 }
                 
                 if($user[0]["inventory"]==1) {
@@ -94,6 +94,9 @@ ddsmoothmenu.init({
                 }
                 if($user[0]["statistics"]==1) {
                     echo'<li><a href="analytics.php">Analytics</a></li>';
+                }
+                if($user[0]["promotions"]==1) {
+                    echo'<li><a href="promotions.php">Promotions</a></li>';
                 }
                 
                 $dbconnector->close();
@@ -175,11 +178,25 @@ ddsmoothmenu.init({
                 $all_items = $dbconnector->get_all_Items();
         
                 for($counter = 0; $counter< count($all_items); $counter++) {
-                    $item_title = $all_items[$counter]["title"];
+                    
                     $item_description = $all_items[$counter]["item_description"];
                     $item_price = $all_items[$counter]["item_price"];
                     $item_id = $all_items[$counter]["item_id"];
-            
+                    
+                    //check for promos
+                    $promo = $dbconnector->get_promo_title($item_id);
+                    $promo_title = $promo[0]["promotion_title"];
+                    
+                    //var_dump($promo_title);
+                    if(empty($promo_title)) {
+                        $item_title = $all_items[$counter]["title"];
+                    }
+                    else {
+                        $item_title = $all_items[$counter]["title"];
+                        $item_title .= " Promo: ";
+                        $item_title .= $promo_title;
+                    }
+                    
                     if ($counter%3!=0)
                         echo "<div class=\"product_box\">";
                     else
