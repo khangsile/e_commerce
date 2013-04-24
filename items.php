@@ -185,7 +185,7 @@ ddsmoothmenu.init({
                     else
                         echo "<div class=\"product_box no_margin_right\">";
 
-                    echo "<a href=\"itemdetail.php?itemid=$item_id\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
+                    //echo "<a href=\"itemdetail.php?itemid=$item_id\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
                     echo "<h3>$item_title</h3>";
                     echo "<p class=\"product_price\"> $$item_price</p>";
                     echo "<a href=\"additem.php?itemid=$item_id\" class=\"add_to_card\">Add to Cart</a>";
