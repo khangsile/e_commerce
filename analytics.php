@@ -166,8 +166,56 @@ ddsmoothmenu.init({
                 </div>
             </div>
         </div>
+        
+        <!-- GET ALL THE DATA!!! -->
+        <?php
+            $dbconnector->open();
+            
+            //users
+            $users = $dbconnector->get_all_Users();
+            $user_count=count($users);
+            
+            //items
+            $items = $dbconnector->get_all_Items();
+            $item_count=count($items);
+            
+            //unshipped orders
+            $unshipped_orders = $dbconnector->get_unshipped_orders(null);
+            $unshipped_orders_count = count($unshipped_orders);
+            
+            //average time of shipping
+            //number of shipped orders
+            $shipped_orders = $dbconnector->get_shipped_orders();
+            $shipped_orders_count = count($shipped_orders);
+//            for($i=0; $i<(count($shipped_orders)); $i++){
+//                $order_sec = strtotime($shipped_orders[$i]["shipped_date"]);
+//
+//                $ship_sec = $shipped_orders[$i]["ordered_date"];
+//
+//            }
+            
+            
+        ?>
         <div id="content" class="float_r">
         	<h1>Analytics</h1>
+                <table>
+                    <tr>
+                        <td>Number of site users:  </td>
+                        <td><?php echo "$user_count" ?></td>
+                    </tr>
+                    <tr>
+                        <td>Number of products:  </td>
+                        <td><?php echo "$item_count" ?></td>
+                    </tr>
+                    <tr>
+                        <td>Number orders needing shipped:  </td>
+                        <td><?php echo "$unshipped_orders_count" ?></td>
+                    </tr>
+                    <tr>
+                        <td>Number orders shipped:  </td>
+                        <td><?php echo "$shipped_orders_count" ?></td>
+                    </tr>
+                </table>
 
         </div> 
         <div class="cleaner"></div>

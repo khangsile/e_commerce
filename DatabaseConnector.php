@@ -275,6 +275,18 @@ class DatabaseConnector {
         
     }
     
+    //GET SHIPPED ORDERS
+    public function get_shipped_orders() {
+        return $this->get_shipped_orders_query();
+    }
+    private function get_shipped_orders_query() {
+        $query = "SELECT * FROM Orders o 
+                  WHERE o.shipped_date IS NOT NULL";
+        $result = $this->dbconn->query($query);
+        $results = $this->results_to_array($result);
+        return $results;
+    }
+    
     //GET USER TYPE
     public function get_user_type ($username) {
         return($this->get_user_type_query($username));
