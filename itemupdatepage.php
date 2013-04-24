@@ -96,7 +96,7 @@ ddsmoothmenu.init({
                     echo'<li><a href="analytics.php">Analytics</a></li>';
                 }
                 if($user[0]["promotions"]==1) {
-                    echo'<li><a href="analytics.php">Promotions</a></li>';
+                    echo'<li><a href="promotions.php">Promotions</a></li>';
                 }
                 
                 $dbconnector->close();
@@ -189,7 +189,7 @@ ddsmoothmenu.init({
                             ?>
                         </td>
                     </tr>
-                    <form name="quantity" method="post" action="itemupdater.php?i=<?php echo $item_id ?>">
+                    <form name="quantity" method="post" action="itempromotion.php?i=<?php echo $item_id ?>">
                         <tr><td height="30">Quantity</td>
                             <td><input type="text" value="<?php echo"$item_count" ?>" style="width: 20px; text-align: right" name ="item_count"/>
                         </td></tr>
