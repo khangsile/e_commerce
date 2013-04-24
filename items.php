@@ -83,9 +83,6 @@ ddsmoothmenu.init({
                 
                 echo'<li><a href="home.php">Home</a></li>';
                 echo'<li><a href="items.php" class="selected">Products</a></li>';
-                
-                echo'<li><a href="about.html">About</a></li>';
-                echo'<li><a href="faqs.html">FAQs</a></li>';
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
@@ -94,6 +91,9 @@ ddsmoothmenu.init({
                 
                 if($user[0]["inventory"]==1) {
                     echo'<li><a href="inventory.php">Inventory</a></li>';
+                }
+                if($user[0]["statistics"]==1) {
+                    echo'<li><a href="analytics.php">Analytics</a></li>';
                 }
                 
                 $dbconnector->close();
@@ -185,7 +185,7 @@ ddsmoothmenu.init({
                     else
                         echo "<div class=\"product_box no_margin_right\">";
 
-                    echo "<a href=\"itemdetail.php?itemid=$item_id\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
+                    //echo "<a href=\"itemdetail.php?itemid=$item_id\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
                     echo "<h3>$item_title</h3>";
                     echo "<p class=\"product_price\"> $$item_price</p>";
                     echo "<a href=\"additem.php?itemid=$item_id\" class=\"add_to_card\">Add to Cart</a>";

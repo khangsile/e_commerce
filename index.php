@@ -75,9 +75,6 @@ ddsmoothmenu.init({
             <ul>
                 <li><a href="home.php">Home</a></li>
                 <li><a href="items.php">Products</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
-                <li><a href="shoppingcart.php">Checkout</a></li>
             </ul>
             <br style="clear: left" />
         </div> <!-- end of ddsmoothmenu -->

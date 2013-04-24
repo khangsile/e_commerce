@@ -84,17 +84,17 @@ ddsmoothmenu.init({
                 
                 echo'<li><a href="home.php">Home</a></li>';
                 echo'<li><a href="items.php">Products</a></li>';
-                
-                echo'<li><a href="about.html">About</a></li>';
-                echo'<li><a href="faqs.html">FAQs</a></li>';
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
-                    echo "<li><a href=\"shipping.php\" class =\"selected\">Shipping</a></li>";
+                    echo"<li><a href=\"shipping.php\" class=\"selected\">Shipping</a></li>'";
                 }
                 
                 if($user[0]["inventory"]==1) {
                     echo'<li><a href="inventory.php">Inventory</a></li>';
+                }
+                if($user[0]["statistics"]==1) {
+                    echo'<li><a href="analytics.php">Analytics</a></li>';
                 }
                 
                 $dbconnector->close();
