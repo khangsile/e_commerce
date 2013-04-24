@@ -151,10 +151,8 @@ class DatabaseConnector {
     }
     
     private function set_item_promo_query($item_id, $item_price, $promo_description) { 
-        $query = "UPDATE items SET item_price = $item_price WHERE item_id='$item_id'";
-        $this->dbconn->query($query);
-        $query = "INSERT INTO promotions (promotion_title, item_id)
-                         VALUE ('$promo_description', '$item_id')";
+        $query = "INSERT INTO promotions (promotion_title, promo_price, item_id)
+                         VALUE ('$promo_description', $item_price, '$item_id')";
         $this->dbconn->query($query);
     }
     

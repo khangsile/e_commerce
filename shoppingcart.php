@@ -188,15 +188,24 @@ ddsmoothmenu.init({
                                 
                                 $dbconnector = new DatabaseConnector();
                                 $dbconnector->open();
+                               
                                 
                                 $total = 0;
                                 
                                 for($i=0;$i<count($items);$i++) {
                                     $item_info = $dbconnector->get_item_info($items[$i]['item_id']);
-                                    echo "<tr>";
-                                    
                                     $item_id = $items[$i]['item_id'];
                                     $item_title = $item_info['title'];
+                                    
+                                    $promo = $dbconnector->get_promo($item_id);
+                                    $promo_price = $promo[0]["promo_price"];
+                                    if(empty($promo_price)){
+                                        $item_price = $item_info['item_price'];
+                                    }
+                                    else {
+                                        $item_price = $promo_price;
+                                    }
+                                    echo "<tr>";
                                     echo "<td><a href='itemdetail.php?itemid=$item_id&item_count=1'>$item_title</a></td>";
                                     
                                     $item_description = $item_info['item_description'];
@@ -205,7 +214,7 @@ ddsmoothmenu.init({
                                     $item_count = $items[$i]['item_count'];
                                     echo "<td align=\"center\">$item_count</td>";
                                     
-                                    $item_price = $item_info['item_price'];
+                                 
                                     $total += $item_price;
                                     echo "<td align=\"right\">$$item_price </td>";
                                     echo "<td align=\"right\">$".$item_price*$item_count."</td>";
