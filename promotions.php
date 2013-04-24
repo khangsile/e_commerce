@@ -65,7 +65,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="home.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -201,11 +201,21 @@ ddsmoothmenu.init({
                                     $item_price = $items[$i]["item_price"];
                                     echo "<td align=\"right\">$$item_price </td>";
                                     
+                                    $item_id = $items[$i]["item_id"];
+                                    $promo = $dbconnector->get_promo($item_id);
+                                    $promo_id = $promo[0]["promo_code"];
+                                    
                                     $item_update_id = $items[$i]["item_id"];
-                                    echo "<td align=\"center\"><a href=\"itempromotion.php?i=$item_update_id\">Promote</a></td></tr>";
-                                   
+                                    if(empty($promo_id)){
+                                        echo "<td align=\"center\"><a href=\"itempromotion.php?i=$item_update_id\">Promote</a></td></tr>";
+                                    }
+                                    else{
+                                        echo "<td align=\"center\"><a href=\"itempromotion.php?i=$item_update_id\">Promote</a></td>
+                                            <td align=\"center\"><a href=\"removepromo.php?i=$promo_id\">Remove</a>
+                                            </td></tr>";
+                                    }
                                 }
-                                echo "<tr><td align=\"right\" colspan=\"5\"><a href=\"newitemadd.php\">New Item</a></td></tr>";
+                              
                                 $dbconnector->close();
                             ?>
                             </tr>

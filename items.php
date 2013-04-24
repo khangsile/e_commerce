@@ -178,7 +178,7 @@ ddsmoothmenu.init({
                     $item_id = $all_items[$counter]["item_id"];
                     
                     //check for promos
-                    $promo = $dbconnector->get_promo_title($item_id);
+                    $promo = $dbconnector->get_promo($item_id);
                     $promo_title = $promo[0]["promotion_title"];
                     
                     //var_dump($promo_title);

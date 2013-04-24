@@ -354,7 +354,7 @@ class DatabaseConnector {
     }
     
     //GET PROMO TITLE
-    public function get_promo_title($item_id) {
+    public function get_promo($item_id) {
         return $this->get_promo_title_query($item_id);
     }
     private function get_promo_title_query($item_id) {
@@ -364,6 +364,17 @@ class DatabaseConnector {
         $rows = array();
         $rows = $this->results_to_array($result);
         return $rows;
+    }
+    
+     public function remove_promo($promo_id) {
+        $this->remove_promo_query($promo_id);
+        return TRUE;
+    }
+    private function remove_promo_query($promo_id) {
+        $query2 = "DELETE FROM promotions
+                   WHERE promo_code = $promo_id";
+        $this->dbconn->query($query2);
+        return TRUE;
     }
     
     //GET SHIPPED ORDERS
