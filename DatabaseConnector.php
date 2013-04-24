@@ -149,6 +149,12 @@ class DatabaseConnector {
         return;
     }
     
+    public function ship_order($order_id) {        
+        $query = "UPDATE Orders SET Orders.shipped_date = NOW() where idOrders = '$order_id' AND shipped_date IS NULL";
+        
+        $this->dbconn->query($query);
+    }
+    
     //***************************QUERIES****************************************
     
     private function get_items_from_order_query($order_id) {
@@ -219,9 +225,7 @@ class DatabaseConnector {
             $query = "SELECT * FROM Orders";
         else
             $query = "SELECT * FROM Orders WHERE ordered_date> '$date'";
-        
-        $query = "SELECT * FROM Orders";
-        
+                        
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
         
