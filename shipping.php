@@ -82,7 +82,7 @@ ddsmoothmenu.init({
                 $dbconnector->open();
                 $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
                 
-                echo'<li><a href="home.php" class="selected">Home</a></li>';
+                echo'<li><a href="home.php">Home</a></li>';
                 echo'<li><a href="items.php">Products</a></li>';
                 
                 echo'<li><a href="about.html">About</a></li>';
@@ -90,7 +90,7 @@ ddsmoothmenu.init({
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
-                    echo"<li><a href=\"shipping.php\">Shipping</a></li>'";
+                    echo "<li><a href=\"shipping.php\" class =\"selected\">Shipping</a></li>";
                 }
                 
                 if($user[0]["inventory"]==1) {
