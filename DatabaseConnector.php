@@ -287,6 +287,16 @@ class DatabaseConnector {
         return $results;
     }
     
+    //GET ITEMS SOLD
+    public function get_items_sold() {
+        return $this->get_items_sold_query();
+    }
+    private function get_items_sold_query() {
+        $query = "SELECT * FROM contains";
+        $result = $this->dbconn->query($query);
+        $results = $this->results_to_array($result);
+        return $results;
+    }
     //GET USER TYPE
     public function get_user_type ($username) {
         return($this->get_user_type_query($username));

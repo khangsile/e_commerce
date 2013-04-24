@@ -194,6 +194,12 @@ ddsmoothmenu.init({
 //
 //            }
             
+            //TOTAL ITEMS SOLD
+            $items_sold = $dbconnector->get_items_sold();
+            $items_sold_count = 0;
+            for($i=0; $i<count($items_sold);$i++) {
+                $items_sold_count = $items_sold_count + $items_sold[$i]["item_count"];
+            }           
             
         ?>
         <div id="content" class="float_r">
@@ -214,6 +220,10 @@ ddsmoothmenu.init({
                     <tr>
                         <td>Number orders shipped:  </td>
                         <td><?php echo "$shipped_orders_count" ?></td>
+                    </tr>
+                    <tr>
+                        <td>Number items sold:  </td>
+                        <td><?php echo "$items_sold_count" ?></td>
                     </tr>
                 </table>
 
