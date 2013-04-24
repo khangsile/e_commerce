@@ -86,6 +86,10 @@ class DatabaseConnector {
         return TRUE;
     }
     
+    public function get_promotions($limit) {
+        return $this->get_promotions_query($limit);
+    }
+    
     public function add_new_order($address, $credit_card, $user_id, $items) {
         if (empty($address) || empty($credit_card) || empty($user_id) || empty($items)) 
             return false;
@@ -319,6 +323,14 @@ class DatabaseConnector {
             echo "ERROR";
             return null;
         }
+    }
+    
+    private function get_promotions_query($limit) {
+        $query = "SELECT p.promotion_title, p.promo_price, p.item_id FROM promotions p LIMIT $limit";
+        
+        $result = $this->dbconn->query($query);
+        
+        return $this->results_to_array($result);
     }
     
     private function get_all_users_query() {
