@@ -73,13 +73,13 @@ class DatabaseConnector {
     
     private function add_new_item_query($new_item_title, $new_item_price, $new_item_description, $new_item_count) {
         $query = "INSERT INTO items (title, item_description, item_price)
-                         VALUES('$new_item_title', '$new_item_description', $new_item_price)";
+                         VALUES('$new_item_title', '$new_item_description', '$new_item_price')";
         
         $this->dbconn->query($query);
         $last_id = $this->dbconn->insert_id;
         
         $query = "INSERT INTO inventory (item_id, item_count)
-                         VALUES($last_id, $new_item_count)"; 
+                         VALUES('$last_id', '$new_item_count')"; 
         
         $this->dbconn->query($query);
         
@@ -111,9 +111,20 @@ class DatabaseConnector {
         $this->dbconn->query($query);
         
         for($i=0; $i<count($items); $i++) {
+            
+            $itemid = $items[$i]['item_id'];
+            $item_count = $items[$i]['item_count'];
             $query = "INSERT INTO contains (order_link, item_link, item_count)
-                        VALUES('$id', '$items[$i]', 1)";
+                        VALUES('$id', '$itemid', '$item_count')";
             $this->dbconn->query($query);
+            
+            $current_count = $this->get_item_count($itemid);
+            $new_count = $current_count - $item_count;
+            
+            if ($new_count<0)
+                $new_count=0;
+            
+            $this->set_item_count($itemid, $new_count);
         }
         
     }
@@ -139,7 +150,7 @@ class DatabaseConnector {
         $query = "UPDATE items SET item_price = $item_price WHERE item_id='$item_id'";
         $this->dbconn->query($query);
         $query = "INSERT INTO promotions (promotion_title, item_id)
-                         VALUE ('$promo_description', $item_id)";
+                         VALUE ('$promo_description', '$item_id')";
         $this->dbconn->query($query);
     }
     
@@ -216,7 +227,7 @@ class DatabaseConnector {
         if (!$order_id) 
             return null;
         
-        $query = "SELECT item_link FROM contains WHERE order_link = '$order_id'";
+        $query = "SELECT c.item_link, c.item_count FROM contains c WHERE order_link = '$order_id'";
         $result = $this->dbconn->query($query);
         $result_array = $this->results_to_array($result);
         

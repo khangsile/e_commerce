@@ -197,14 +197,19 @@ ddsmoothmenu.init({
                                     echo "<td>$order_date</td>";
                                     
                                     $items = $dbconnector->get_items_from_order($order_no);
-                                    echo "<td align=\"center\">".count($items)."</td>";
                                     
+                                    $count = 0;
                                     $order_total = 0;
                                     for ($j=0; $j<count($items); $j++) {
                                         $item_info = $dbconnector->get_item_info($items[$j]['item_link']);
-                                        $price = $item_info['item_price'];
+                                        $item_count = $items[$j]['item_count'];
+                                        var_dump($item_count);
+                                        $price = $item_info['item_price']*$item_count;
+                                        $count+=$item_count;
                                         $order_total+=$price;
                                     }
+                                    
+                                    echo "<td align=\"center\">".$count."</td>";
                                     
                                     $user_id = $dbconnector->get_user_from_order($order_no);
                                     echo "<td align=\"right\">$user_id</td>";

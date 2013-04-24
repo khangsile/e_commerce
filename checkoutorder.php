@@ -36,17 +36,36 @@
         $valid = false;
     }
     
-    if ($valid) {
-        $dbconnector = new DatabaseConnector();
-        $dbconnector->open();
+    $dbconnector = new DatabaseConnector();
+    $dbconnector->open();
     
+    for($i=0; $i<count($_SESSION['shopping_cart']); $i++) {
+        $item_id = $_SESSION['shopping_cart'][$i]['item_id'];
+        
+        $available_amt = $dbconnector->get_item_count($item_id);
+        
+        if ($_SESSION['shopping_cart'][$i]['item_count']>$available_amt) {
+            $valid = false;
+            $_SESSION['shopping_cart'][$i]['item_count'] = $available_amt;
+        }
+    }
+    
+    $dbconnector->close();
+    
+    if ($valid) {
+        $dbconnector->open();
+        
         $username = $_SESSION['username'];
         $user_id = $dbconnector->get_user_id($username);
     
         if($dbconnector->add_new_order($full_address, $credit_card, $user_id, $_SESSION['shopping_cart']))
            $_SESSION['shopping_cart'] = array();
         
-        header("location: shoppingcart.php");
-    }
+        $dbconnector->close();
+        
+     }
+     
+     header("location: shoppingcart.php");
+
     
 ?>

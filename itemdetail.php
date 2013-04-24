@@ -222,11 +222,18 @@ ddsmoothmenu.init({
                         <td height="30">Manufacturer:</td>
                         <td>Apple</td>
                     </tr>
-                    <tr><td height="30">Quantity</td><td><input type="number" value="1" style="width: 20px; text-align: right" min="1" <?php
+                    <form name="toCart" method="get" action="additem.php">
+                    <tr><td height="30">Quantity</td><td><input name="item_count"type="number" value="1" style="width: 20px; text-align: right" min="0" <?php
                         echo "max='$item_count'"; ?>/></td></tr>
+                        <input type="hidden" name="itemid" value= <?php echo "\"$item_id\"" ?> />
+                        <tr>
+                            <td height="30"></td><td><input type="submit" value="Add to Cart"/></td>
+                        </tr>
+                        
+                    </form>
                 </table>
                 <div class="cleaner h20"></div>
-                <a href=<?php echo "\"additem.php?itemid=$item_id\""; ?> class="add_to_card">Add to Cart</a>
+                <a href=<?php echo "\"additem.php?itemid=$item_id\""; ?> class="add_to_cart">Add to Cart</a>
 			</div>
             <div class="cleaner h30"></div>
             

@@ -191,21 +191,23 @@ ddsmoothmenu.init({
                                 $total = 0;
                                 
                                 for($i=0;$i<count($items);$i++) {
-                                    $item_info = $dbconnector->get_item_info($items[$i]);
+                                    $item_info = $dbconnector->get_item_info($items[$i]['item_id']);
                                     echo "<tr>";
                                     
+                                    $item_id = $items[$i]['item_id'];
                                     $item_title = $item_info['title'];
-                                    echo "<td>$item_title</td>";
+                                    echo "<td><a href='itemdetail.php?itemid=$item_id&item_count=1'>$item_title</a></td>";
                                     
                                     $item_description = $item_info['item_description'];
                                     echo "<td>$item_description</td>";
                                     
-                                    echo "<td align=\"center\">1</td>";
+                                    $item_count = $items[$i]['item_count'];
+                                    echo "<td align=\"center\">$item_count</td>";
                                     
                                     $item_price = $item_info['item_price'];
                                     $total += $item_price;
                                     echo "<td align=\"right\">$$item_price </td>";
-                                    echo "<td align=\"right\">$$item_price </td>";
+                                    echo "<td align=\"right\">$".$item_price*$item_count."</td>";
                                    
                                     echo "<td align=\"center\"><a href=\"removeitem.php?index=$i\">Remove</a></td></tr>";
                                 }

@@ -205,7 +205,7 @@ ddsmoothmenu.init({
                     //echo "<a href=\"itemdetail.php?itemid=$item_id\"><img src=\"images/product/01.jpg\" alt=\"Image 01\"/></a>";
                     echo "<h3>$item_title</h3>";
                     echo "<p class=\"product_price\"> $$item_price</p>";
-                    echo "<a href=\"additem.php?itemid=$item_id\" class=\"add_to_card\">Add to Cart</a>";
+                    echo "<a href=\"additem.php?itemid=$item_id&item_count=1\" class=\"add_to_card\">Add to Cart</a>";
                     echo "<a href=\"itemdetail.php?itemid=$item_id\" class=\"detail\">Detail</a>";
                     echo "</div>";
                 }
