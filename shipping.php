@@ -135,32 +135,38 @@ ddsmoothmenu.init({
                 </div>
             </div>
             <div class="sidebar_box"><span class="bottom"></span>
-            	<h3>Best Sellers </h3>   
+            	<h3>Promotions</h3>   
                 <div class="content"> 
-                	<div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 01" /></a>
-                        <h4><a href="#">Donec nunc nisl</a></h4>
-                        <p class="price">$10</p>
-                        <div class="cleaner"></div>
-                    </div>
-                    <div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 02" /></a>
-                        <h4><a href="#">Aenean eu tellus</a></h4>
-                        <p class="price">$12</p>
-                        <div class="cleaner"></div>
-                    </div>
-                    <div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 03" /></a>
-                        <h4><a href="#">Phasellus ut dui</a></h4>
-                        <p class="price">$20</p>
-                        <div class="cleaner"></div>
-                    </div>
-                    <div class="bs_box">
-                    	<a href="#"><img src="images/templatemo_image_01.jpg" alt="Image 04" /></a>
-                        <h4><a href="#">Vestibulum ante</a></h4>
-                        <p class="price">$16</p>
-                        <div class="cleaner"></div>
-                    </div>
+                    <?php
+                    
+                    $dbconnector->open();
+                    
+                    $LIMIT = 4;
+                    $promotions = $dbconnector->get_promotions($LIMIT);
+                    
+                    for($i=0;$i<count($promotions);$i++) {
+                        
+                        $item_id = $promotions[$i]['item_id'];
+                        $item_info = $dbconnector->get_item_info($item_id);
+                            
+                        echo "<div class=\"bs_box\">";
+                            
+                        $promo_title = $promotions[$i]['promotion_title'];
+                        echo "<div><h4 style='color: white'>$promo_title</h4></div>";
+                        
+                        $item_title = $item_info['title'];
+                        echo "<h4><a href='itemdetail.php?itemid=$item_id'>$item_title</a></h4>";
+                        
+                        $promo_price = $promotions[$i]['promo_price'];
+                        echo "<p class='price'>$$promo_price</p>";
+                        
+                        echo "<div class='cleaner'></div>";
+                        echo "</div>";
+                         
+                    }
+                    
+                    $dbconnector->close();
+                ?>  
                 </div>
             </div>
         </div>
