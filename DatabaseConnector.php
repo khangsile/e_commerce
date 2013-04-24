@@ -193,7 +193,7 @@ class DatabaseConnector {
         $purchases = $this->get_user_purchases_query($user_id);
         $orders = array();
         
-        for($i=0; $i<count($purchases);$i++) {
+        for($i=count($purchases)-1; $i>=0;$i--) {
             $orders[] = $this->get_order_query($purchases[$i]['order_id']);
         }
         

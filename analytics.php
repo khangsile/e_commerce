@@ -64,7 +64,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="home.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
+            <a href="account.php">My Account</a> | <a href="orders.php">Orders</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -110,14 +110,9 @@ ddsmoothmenu.init({
                     <?php
                         echo count($_SESSION['shopping_cart']);
                     ?> 
-                    Products</strong> ( <a href="#">Show Cart</a> )
+                    Products</strong> ( <a href="shoppingcart.php">Show Cart</a> )
             </div>
-        	<div id="templatemo_search">
-                <form action="#" method="get">
-                  <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                  <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                </form>
-            </div>
+        	
             <div class="cleaner"></div>
     	</div>
     </div> <!-- END of templatemo_menu -->
