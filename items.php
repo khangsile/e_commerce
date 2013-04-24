@@ -180,13 +180,12 @@ ddsmoothmenu.init({
                 for($counter = 0; $counter< count($all_items); $counter++) {
                     
                     $item_description = $all_items[$counter]["item_description"];
-                    $item_price = $all_items[$counter]["item_price"];
                     $item_id = $all_items[$counter]["item_id"];
                     
                     //check for promos
                     $promo = $dbconnector->get_promo($item_id);
                     $promo_title = $promo[0]["promotion_title"];
-                    
+                    $promo_price = $promo[0]["promo_price"];
                     //var_dump($promo_title);
                     if(empty($promo_title)) {
                         $item_title = $all_items[$counter]["title"];
@@ -195,6 +194,12 @@ ddsmoothmenu.init({
                         $item_title = $all_items[$counter]["title"];
                         $item_title .= " Promo: ";
                         $item_title .= $promo_title;
+                    }
+                    if(empty($promo_price)){
+                        $item_price = $all_items[$counter]["item_price"];
+                    }
+                    else {
+                        $item_price = $promo_price;
                     }
                     
                     if ($counter%3!=0)
