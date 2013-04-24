@@ -171,7 +171,7 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>Inventory Management</h1>
+        	<h1>Promotions</h1>
         	<table width="680px" cellspacing="0" cellpadding="5">
                    	  	<tr bgcolor="#ddd">
                         	<th width="220" align="left">Title </th> 
@@ -202,7 +202,7 @@ ddsmoothmenu.init({
                                     echo "<td align=\"right\">$$item_price </td>";
                                     
                                     $item_update_id = $items[$i]["item_id"];
-                                    echo "<td align=\"center\"><a href=\"itemupdatepage.php?i=$item_update_id\">Update</a></td></tr>";
+                                    echo "<td align=\"center\"><a href=\"itempromotion.php?i=$item_update_id\">Promote</a></td></tr>";
                                    
                                 }
                                 echo "<tr><td align=\"right\" colspan=\"5\"><a href=\"newitemadd.php\">New Item</a></td></tr>";

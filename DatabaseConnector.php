@@ -96,6 +96,19 @@ class DatabaseConnector {
         return $result_array[0]["item_count"];
     }
     
+    //SET ITEM PROMO
+    public function set_item_promo($item_id, $item_price, $promo_description) {
+        return $this->set_item_promo_query($item_id, $item_price, $promo_description);
+    }
+    
+    private function set_item_promo_query($item_id, $item_price, $promo_description) { 
+        $query = "UPDATE items SET item_price = $item_price WHERE item_id='$item_id'";
+        $this->dbconn->query($query);
+        $query = "INSERT INTO promotions (promotion_title, item_id)
+                         VALUE ('$promo_description', $item_id)";
+        $this->dbconn->query($query);
+    }
+    
     public function get_items_from_order($order_id) {
         
         $items = $this->get_items_from_order_query($order_id);
@@ -279,6 +292,19 @@ class DatabaseConnector {
         
     }
     
+    //GET PROMO TITLE
+    public function get_promo_title($item_id) {
+        return $this->get_promo_title_query($item_id);
+    }
+    private function get_promo_title_query($item_id) {
+        $query2 = "SELECT * FROM promotions
+                   WHERE item_id = '$item_id'";
+        $result = $this->dbconn->query($query2);
+        $rows = array();
+        $rows = $this->results_to_array($result);
+        return $rows;
+    }
+    
     //GET SHIPPED ORDERS
     public function get_shipped_orders() {
         return $this->get_shipped_orders_query();
@@ -328,11 +354,13 @@ class DatabaseConnector {
     }
     
     private function get_all_items_query() {
-        $query = "SELECT * FROM items JOIN (inventory) ON (items.item_id = inventory.item_id)";
+        $query = "SELECT * FROM items 
+                    JOIN (inventory) ON (items.item_id = inventory.item_id)";
+        //LEFT JOIN (promotions) ON (items.item_id = promotions.item_id)";
+                    
         $result = $this->dbconn->query($query);
         $rows = array();
         $rows = $this->results_to_array($result);
-        
         return $rows;
     }
     

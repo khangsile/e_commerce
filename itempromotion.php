@@ -176,22 +176,20 @@ ddsmoothmenu.init({
                 $item_info = $dbconnector->get_item_info($item_id);                
                 $item_name = $item_info["title"];
                 $item_count = $dbconnector->get_item_count($item_id);
+                $item_price = $item_info['item_price'];
                 $dbconnector->close();
                 echo "<h1>$item_name</h1>";
             ?>
             <table>
-                    <tr>
-                        <td height="30" width="160">Price:</td>
-                        <td>
-                            <?php 
-                                $item_price = $item_info['item_price'];
-                                echo "$$item_price"; 
-                            ?>
-                        </td>
-                    </tr>
-                    <form name="quantity" method="post" action="itemupdater.php?i=<?php echo $item_id ?>">
+                    <form name="quantity" method="post" action="itempromoter.php?i=<?php echo $item_id ?>">
+                        <tr><td height="30">Price</td>
+                            <td><input type="text" value="<?php echo"$item_price" ?>" style="width: 30px; text-align: right" name ="item_price"/>
+                        </td></tr>
                         <tr><td height="30">Quantity</td>
-                            <td><input type="text" value="<?php echo"$item_count" ?>" style="width: 20px; text-align: right" name ="item_count"/>
+                            <td><?php echo"$item_count" ?>
+                        </td></tr>
+                        <tr><td height="30">Promo Title: </td>
+                            <td><input type="text" value="" style="width: 150px; text-align: right" name ="promo_description"/>
                         </td></tr>
                         <tr><td>
                             <input name="submit" type="submit" id="submit" class="sub_btn"></input>
