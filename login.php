@@ -25,7 +25,7 @@ if ($valid) {
     header("location: home.php");
     
 } else {
-    header("location: login_failed.php");
+    header("location: index.php");
 }
 ?>
 
