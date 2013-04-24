@@ -70,6 +70,7 @@ class DatabaseConnector {
     public function add_new_item($new_item_title, $new_item_price, $new_item_description, $new_item_count) {
         $this->add_new_item_query($new_item_title, $new_item_price, $new_item_description, $new_item_count);
     }
+    
     private function add_new_item_query($new_item_title, $new_item_price, $new_item_description, $new_item_count) {
         $query = "INSERT INTO items (title, item_description, item_price)
                          VALUES('$new_item_title', '$new_item_description', $new_item_price)";
@@ -78,10 +79,43 @@ class DatabaseConnector {
         $last_id = $this->dbconn->insert_id;
         
         $query = "INSERT INTO inventory (item_id, item_count)
-                         VALUES($last_id, $new_item_count)";        
+                         VALUES($last_id, $new_item_count)"; 
+        
         $this->dbconn->query($query);
         
         return TRUE;
+    }
+    
+    public function add_new_order($address, $credit_card, $user_id, $items) {
+        if (empty($address) || empty($credit_card) || empty($user_id) || empty($items)) 
+            return false;
+        
+        if (!is_array($items))
+            return false;
+        
+        $this->add_new_order_query($address, $credit_card, $user_id, $items);
+        
+        return true;
+    }
+    
+    private function add_new_order_query($address, $credit_card, $user_id, $items) {
+        
+        $query = "INSERT INTO Orders (ordered_date, credit_card, address)
+                    VALUES (NOW(), '$credit_card', '$address')";
+        
+        $this->dbconn->query($query);
+        $id = $this->dbconn->insert_id;
+        
+        $query = "INSERT INTO purchases (order_id, user_id) 
+                    VALUES ('$id', '$user_id')";
+        $this->dbconn->query($query);
+        
+        for($i=0; $i<count($items); $i++) {
+            $query = "INSERT INTO contains (order_link, item_link, item_count)
+                        VALUES('$id', '$items[$i]', 1)";
+            $this->dbconn->query($query);
+        }
+        
     }
     
     //GET ITEM COUNT
@@ -120,9 +154,17 @@ class DatabaseConnector {
         return $this->get_unshipped_orders_query($date);
     }
     
-    public function get_user_from_order($order_id) {
+    public function get_user_id($username) {
         
-        return $this->get_user_from_order_query($order_id);
+        $result = $this->get_user_id_query($username);
+        
+        return $result[0]['user_id'];
+    }
+    
+    public function get_user_from_order($order_id) {
+        $result = $this->get_user_from_order_query($order_id);
+        
+        return $result['user_id'];
     }
     
     public function get_user_orders($user_id) {
@@ -258,7 +300,15 @@ class DatabaseConnector {
     private function get_all_users_query() {
         $query = "SELECT * FROM users";
         $result = $this->dbconn->query($query);
-        $rows = array();
+        $rows = $this->results_to_array($result);
+        
+        return $rows;
+    }
+    
+    private function get_user_id_query($username) {
+        $query = "SELECT user_id FROM users WHERE user_name = '$username'";
+        
+        $result = $this->dbconn->query($query);
         $rows = $this->results_to_array($result);
         
         return $rows;

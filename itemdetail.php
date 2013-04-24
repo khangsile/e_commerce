@@ -81,7 +81,7 @@ ddsmoothmenu.init({
                 $dbconnector->open();
                 $user = $dbconnector->get_permissions_from_type($_SESSION['user_type']);
                 
-                echo'<li><a href="home.php" class="selected">Home</a></li>';
+                echo'<li><a href="home.php">Home</a></li>';
                 echo'<li><a href="items.php">Products</a></li>';
                 
                 echo'<li><a href="about.html">About</a></li>';
@@ -183,9 +183,9 @@ ddsmoothmenu.init({
                 echo "<h1>$item_name</h1>";
             ?>
             
-            <div class="content_half float_l">
+            <!--<div class="content_half float_l">
         	<a  rel="lightbox[portfolio]" href="images/product/10_l.jpg"><img src="images/product/10.jpg" alt="Image 01" /></a>
-            </div>
+            </div> -->
             <div class="content_half float_r">
 				<table>
                     <tr>
@@ -219,7 +219,8 @@ ddsmoothmenu.init({
                         <td height="30">Manufacturer:</td>
                         <td>Apple</td>
                     </tr>
-                    <tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>
+                    <tr><td height="30">Quantity</td><td><input type="number" value="1" style="width: 20px; text-align: right" min="1" <?php
+                        echo "max='$item_count'"; ?>/></td></tr>
                 </table>
                 <div class="cleaner h20"></div>
                 <a href=<?php echo "\"additem.php?itemid=$item_id\""; ?> class="add_to_card">Add to Cart</a>

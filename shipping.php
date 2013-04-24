@@ -203,20 +203,21 @@ ddsmoothmenu.init({
                                         $order_total+=$price;
                                     }
                                     
-                                    echo "<td align=\"right\">$i </td>";
+                                    $user_id = $dbconnector->get_user_from_order($order_no);
+                                    echo "<td align=\"right\">$user_id</td>";
                                     
                                     $total+=$order_total;
                                     echo "<td align=\"right\">$order_total</td>";
                                    
                                     echo "<td align=\"center\"><a href=\"shiporder.php?order=$order_no\">Ship</a></td></tr>";
-                                } 
+                                }
                                 
                                 $dbconnector->close();
                             ?>
                             <tr>
-                        	<td colspan="3" align="right"  height="30px"></td>;
+                            <td colspan="3" align="right"  height="30px"></td>
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
-                            <td align="right" style="background:#ddd; font-weight:bold">$<?php echo $total; ?></td>
+                            <td align="right" style="background:#ddd; font-weight:bold"><?php echo "$$total"; ?></td>
                             <td style="background:#ddd; font-weight:bold"> </td>
 						</tr>
 					</table>
