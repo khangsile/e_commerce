@@ -87,11 +87,11 @@ ddsmoothmenu.init({
                 echo'<li><a href="shoppingcart.php">Checkout</a></li>';
                 
                 if ($user[0]["shipping"]==1)  {
-                    echo"<li><a href=\"shipping.php\">Shipping</a></li>";
+                    echo"<li><a href=\"shipping.php\" class=\"selected\">Shipping</a></li>";
                 }
                 
                 if($user[0]["inventory"]==1) {
-                    echo'<li><a href="inventory.php" class="selected">Inventory</a></li>';
+                    echo'<li><a href="inventory.php">Inventory</a></li>';
                 }
                 if($user[0]["statistics"]==1) {
                     echo'<li><a href="analytics.php">Analytics</a></li>';
@@ -113,7 +113,9 @@ ddsmoothmenu.init({
                     ?> 
                     Products</strong> ( <a href="shoppingcart.php">Show Cart</a> )
             </div>
-        	
+        	<div id="templatemo_search">
+                
+            </div>
             <div class="cleaner"></div>
     	</div>
     </div> <!-- END of templatemo_menu -->
@@ -166,50 +168,81 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>Inventory Management</h1>
-        	<table width="680px" cellspacing="0" cellpadding="5">
-                   	  	<tr bgcolor="#ddd">
-                        	<th width="220" align="left">Title </th> 
-                        	<th width="180" align="left">Description </th> 
-                       	  	<th width="100" align="center">Quantity </th> 
-                        	<th width="60" align="right">Price </th> 
-                        	<th width="60" align="right">Update</th> 
+        	<h1>Orders</h1>
+                <table width="680px" cellspacing="0" cellpadding="5">
+                        <tr bgcolor="#ddd">
+                        	<th width="220" align="left">Order</th> 
+                        	<th width="150" align="left">Date</th> 
+                       	  	<th width="80" align="center">Items</th> 
+                        	<th width="100" align="right">User</th> 
+                        	<th width="60" align="right">Total </th> 
                         	<th width="90"> </th>
                       	</tr>
-                            <?php
-                            
-                                $dbconnector = new DatabaseConnector();
+                            <?php                                
                                 $dbconnector->open();
-                                $items = $dbconnector->get_all_Items();
-                                for($i=0;$i<count($items);$i++) {
+                                
+                                $user_id = $dbconnector->get_user_id($_SESSION['username']);
+                                $orders = $dbconnector->get_user_orders($user_id);
+                                
+                                $total = 0;
+                                for($i=0;$i<count($orders);$i++) {
                                     echo "<tr>";
                                     
-                                    $item_title = $items[$i]["title"];
-                                    echo "<td>$item_title</td>";
+                                    $order_no = $orders[$i]['idOrders'];
+                                    echo "<td>$order_no</td>";
                                     
-                                    $item_description = $items[$i]["item_description"];
-                                    echo "<td>$item_description</td>";
+                                    $order_date = $orders[$i]['ordered_date'];
+                                    echo "<td>$order_date</td>";
                                     
-                                    $item_count = $items[$i]["item_count"];
-                                    echo "<td align=\"center\">$item_count</td>";
+                                    $items = $dbconnector->get_items_from_order($order_no);
                                     
-                                    $item_price = $items[$i]["item_price"];
-                                    echo "<td align=\"right\">$$item_price </td>";
+                                    $count = 0;
+                                    $order_total = 0;
+                                    for ($j=0; $j<count($items); $j++) {
+                                        $item_info = $dbconnector->get_item_info($items[$j]['item_link']);
+                                        $item_count = $items[$j]['item_count'];
+                                        $price = $item_info['item_price']*$item_count;
+                                        $count+=$item_count;
+                                        $order_total+=$price;
+                                    }
                                     
-                                    $item_update_id = $items[$i]["item_id"];
-                                    echo "<td align=\"center\"><a href=\"itemupdatepage.php?i=$item_update_id\">Update</a></td></tr>";
+                                    echo "<td align=\"center\">".$count."</td>";
+                                    
+                                    $shipped = $orders[$i]['shipped_date'];
+                                    $shipped_text = '';
+                                    if ($shipped != NULL)
+                                        $shipped_text = $shipped;
+                                    else
+                                        $shipped_text = "PENDING";
+                                    
+                                        
+                                    echo "<td align=\"right\">$shipped_text</td>";
+                                    
+                                    $total+=$order_total;
+                                    echo "<td align=\"right\">$order_total</td>";
                                    
+                                    echo "<td align=\"center\"><a href=\"orderdetails.php?order=$order_no\">Details</a></td></tr>";
                                 }
-                                echo "<tr><td align=\"right\" colspan=\"5\"><a href=\"newitemadd.php\">New Item</a></td></tr>";
+                                
                                 $dbconnector->close();
                             ?>
-                            </tr>
-                    </table>                    	
+                            <tr>
+                            <td colspan="3" align="right"  height="30px"></td>
+                            <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
+                            <td align="right" style="background:#ddd; font-weight:bold"><?php echo "$$total"; ?></td>
+                            <td style="background:#ddd; font-weight:bold"> </td>
+						</tr>
+					</table>
+                    <div style="float:right; width: 215px; margin-top: 20px;">
+                    
+                    <p><a href="items.php">Continue shopping</a></p>
+                    	
                     </div>
             
         </div> 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
+    
     <div id="templatemo_footer">
     	<p>
 			<a href="index.html">Home</a> | <a href="products.html">Products</a> | <a href="about.html">About</a> | <a href="faqs.html">FAQs</a> | <a href="checkout.html">Checkout</a> | <a href="contact.html">Contact</a>
@@ -222,9 +255,3 @@ ddsmoothmenu.init({
 
 </body>
 </html>
-
-
-<!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->

@@ -86,12 +86,7 @@ ddsmoothmenu.init({
                     ?>
                     Products</strong> ( <a href="#">Show Cart</a> )
             </div>
-        	<div id="templatemo_search">
-                <form action="#" method="get">
-                  <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                  <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                </form>
-            </div>
+        	
             <div class="cleaner"></div>
     	</div>
     </div> <!-- END of templatemo_menu -->
