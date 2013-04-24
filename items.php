@@ -95,6 +95,9 @@ ddsmoothmenu.init({
                 if($user[0]["statistics"]==1) {
                     echo'<li><a href="analytics.php">Analytics</a></li>';
                 }
+                if($user[0]["promotions"]==1) {
+                    echo'<li><a href="analytics.php">Promotions</a></li>';
+                }
                 
                 $dbconnector->close();
                 ?>
