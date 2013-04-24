@@ -64,7 +64,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
+	        <a href="home.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
 		</div>
         
         <div class="cleaner"></div>
@@ -184,7 +184,7 @@ ddsmoothmenu.init({
                     $item_id = $all_items[$counter]["item_id"];
                     
                     //check for promos
-                    $promo = $dbconnector->get_promo_title($item_id);
+                    $promo = $dbconnector->get_promo($item_id);
                     $promo_title = $promo[0]["promotion_title"];
                     
                     //var_dump($promo_title);

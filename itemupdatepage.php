@@ -64,7 +64,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="#">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
+	        <a href="home.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>            
 		</div>
         
         <div class="cleaner"></div>
@@ -189,7 +189,7 @@ ddsmoothmenu.init({
                             ?>
                         </td>
                     </tr>
-                    <form name="quantity" method="post" action="itempromotion.php?i=<?php echo $item_id ?>">
+                    <form name="quantity" method="post" action="itemupdater.php?i=<?php echo $item_id ?>">
                         <tr><td height="30">Quantity</td>
                             <td><input type="text" value="<?php echo"$item_count" ?>" style="width: 20px; text-align: right" name ="item_count"/>
                         </td></tr>

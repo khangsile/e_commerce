@@ -81,7 +81,7 @@ ddsmoothmenu.init({
         </div>
         
         <div id="header_right">
-	        <a href="account.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
+	        <a href="home.php">My Account</a> | <a href="shoppingcart.php">Checkout</a> | <a href="signout.php">Log Out</a>
 		</div>
         
         <div class="cleaner"></div>
@@ -187,28 +187,49 @@ ddsmoothmenu.init({
             </div>
         </div>
         <div id="content" class="float_r">
-        	<h1>VIP Products</h1>
-            <div class="product_box">
-            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/01.jpg" alt="Image 01" /></a>
-                <h3>Integer eleifend sed</h3>
-                <p class="product_price">$ 100</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-                <a href="productdetail.html" class="detail">Detail</a>
-            </div>        	
-            <div class="product_box">
-            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/02.jpg" alt="Image 02" /></a>
-                <h3>Nam cursus facilisis</h3>
-                <p class="product_price">$ 200</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-                <a href="productdetail.html" class="detail">Detail</a>
-            </div>        	
-            <div class="product_box no_margin_right">
-            	<a href="productdetail.html"><img src="templatemo_352_station_shop/images/product/03.jpg" alt="Image 03" /></a>
-                <h3>Mauris consectetur</h3>
-                <p class="product_price">$ 120</p>
-                <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
-                <a href="productdetail.html" class="detail">Detail</a>
-            </div>        	
+        	<?php
+                    session_start();
+                    $dbconnector->open();
+                ?>
+            <table>
+                <th><h3>Welcome <?php echo $_SESSION['username'];?></h3></th>
+            </table>
+                <?php
+                    $account_details = $dbconnector->get_user($_SESSION['username']);
+                    $username = $account_details[0]["user_name"]; 
+                    $password = $account_details[0]["user_pass"];
+                    $email = $account_details[0]["user_email"];
+                    $user_type = $account_details[0]["user_type"];
+                ?>
+            <table>
+                <tr>
+                    <td><?php echo "Username: "?></td>
+                    <td><?php echo $username."<br/>"?></td>
+                </tr>
+                <tr>
+                    <td><?php echo "Password: "?></td>
+                    <td><?php echo $password."<br/>"?></td>
+                </tr>
+                <tr>
+                    <td><?php echo "User email: "?></td>
+                    <td><?php echo $email."<br/>"?></td>
+                </tr>
+                <tr>
+                    <td><?php echo "User Type: "?></td>
+                    <td><?php 
+                    if($user_type == 1){
+                        echo "Manager"."<br/>";
+                    }
+                    else if($user_type == 2){
+                        echo "Staff"."<br/>";
+                    }
+                    else{
+                        echo "User"."<br/>";
+                    }
+                    //echo $user_type."<br/>"?></td>
+                </tr>
+            </table>
+            
         </div> 
         <div class="cleaner"></div>
     </div> <!-- END of templatemo_main -->
