@@ -97,12 +97,24 @@ class DatabaseConnector {
         if (!is_array($items))
             return false;
         
-        $this->add_new_order_query($address, $credit_card, $user_id, $items);
-        
-        return true;
+        return $this->add_new_order_query($address, $credit_card, $user_id, $items);
+      
     }
     
     private function add_new_order_query($address, $credit_card, $user_id, $items) {
+        
+        for($i=0; $i<count($items); $i++) {
+            
+            $itemid = $items[$i]['item_id'];
+            $item_count = $items[$i]['item_count'];
+            
+            $current_count = $this->get_item_count($itemid);
+            $new_count = $current_count - $item_count;
+            
+            if ($new_count<0)
+                return false;
+        }
+        
         
         $query = "INSERT INTO Orders (ordered_date, credit_card, address)
                     VALUES (NOW(), '$credit_card', '$address')";
@@ -130,6 +142,8 @@ class DatabaseConnector {
             
             $this->set_item_count($itemid, $new_count);
         }
+        
+        return true;
         
     }
     
